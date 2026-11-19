@@ -1,0 +1,2539 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartGuruji – FLN Marathi Practice Sheet Generator 2026-27</title>
+  <style>
+    /* Standalone Page Base Styling */
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #eef2f6;
+      min-height: 100vh;
+    }
+
+    body {
+      padding: 12px;
+      font-family: 'Noto Sans Devanagari', 'Mukta', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    /* All tool styles strictly scoped to #sgmarflnps_app */
+    #sgmarflnps_app {
+      font-family: 'Noto Sans Devanagari', 'Mukta', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #1e293b;
+      background: #f4f7fb;
+      border: 1px solid #dbe4f0;
+      border-radius: 16px;
+      padding: 18px;
+      margin: 0 auto;
+      max-width: 1080px;
+      box-sizing: border-box;
+    }
+
+    #sgmarflnps_app *,
+    #sgmarflnps_app *::before,
+    #sgmarflnps_app *::after {
+      box-sizing: border-box;
+    }
+
+    #sgmarflnps_app .sgmarflnps_hidden {
+      display: none !important;
+    }
+
+    #sgmarflnps_app .sgmarflnps_header {
+      background: linear-gradient(135deg, #1d4ed8 0%, #0f766e 100%);
+      color: #ffffff;
+      padding: 22px 20px;
+      border-radius: 14px;
+      text-align: center;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 18px rgba(29, 78, 216, 0.16);
+    }
+
+    #sgmarflnps_app .sgmarflnps_badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    #sgmarflnps_app .sgmarflnps_title {
+      margin: 0 0 8px 0;
+      font-size: 1.85rem;
+      line-height: 1.3;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    #sgmarflnps_app .sgmarflnps_subtitle {
+      margin: 0;
+      font-size: 1.25rem;
+      color: #e0f2fe;
+      font-weight: 500;
+    }
+
+    #sgmarflnps_app .sgmarflnps_panel {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    }
+
+    #sgmarflnps_app .sgmarflnps_panel_head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #eff6ff;
+    }
+
+    #sgmarflnps_app .sgmarflnps_panel_title {
+      margin: 0;
+      font-size: 1.4rem;
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    #sgmarflnps_app .sgmarflnps_guide_box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-left: 5px solid #2563eb;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      color: #1e3a8a;
+    }
+
+    #sgmarflnps_app .sgmarflnps_guide_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+    }
+
+    #sgmarflnps_app .sgmarflnps_close_btn {
+      background: #dbeafe;
+      color: #1e40af;
+      border: none;
+      border-radius: 8px;
+      padding: 4px 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    #sgmarflnps_app .sgmarflnps_guide_list {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    #sgmarflnps_app .sgmarflnps_guide_list li {
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+
+    #sgmarflnps_app .sgmarflnps_grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    @media (min-width: 768px) {
+      #sgmarflnps_app .sgmarflnps_grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      #sgmarflnps_app .sgmarflnps_grid_4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      #sgmarflnps_app .sgmarflnps_field_wide {
+        grid-column: span 3;
+      }
+    }
+
+    @media (min-width: 980px) {
+      #sgmarflnps_app .sgmarflnps_grid_4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    #sgmarflnps_app .sgmarflnps_field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    #sgmarflnps_app .sgmarflnps_label {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    #sgmarflnps_app .sgmarflnps_input {
+      width: 100%;
+      padding: 11px 13px;
+      font-size: 1.2rem;
+      font-family: inherit;
+      color: #0f172a;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    #sgmarflnps_app .sgmarflnps_input:focus {
+      border-color: #2563eb;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    #sgmarflnps_app .sgmarflnps_readonly {
+      background: #eef2ff;
+      color: #1e40af;
+      font-weight: 700;
+      cursor: not-allowed;
+    }
+
+    #sgmarflnps_app .sgmarflnps_divider_label {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0f766e;
+      margin: 14px 0 12px 0;
+      padding-top: 12px;
+      border-top: 1px dashed #cbd5e1;
+    }
+
+    #sgmarflnps_app .sgmarflnps_actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    #sgmarflnps_app .sgmarflnps_btn {
+      padding: 12px 18px;
+      font-size: 1.2rem;
+      font-family: inherit;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+      color: #ffffff;
+      flex: 1 1 auto;
+      min-width: 185px;
+      text-align: center;
+    }
+
+    #sgmarflnps_app .sgmarflnps_btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+
+    #sgmarflnps_app .sgmarflnps_btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    #sgmarflnps_app .sgmarflnps_btn_primary { background: #2563eb; }
+    #sgmarflnps_app .sgmarflnps_btn_secondary { background: #7c3aed; }
+    #sgmarflnps_app .sgmarflnps_btn_success { background: #059669; }
+    #sgmarflnps_app .sgmarflnps_btn_accent { background: #d97706; }
+    #sgmarflnps_app .sgmarflnps_btn_danger { background: #dc2626; }
+    #sgmarflnps_app .sgmarflnps_btn_info {
+      background: #0284c7;
+      flex: 0 0 auto;
+      min-width: auto;
+      padding: 9px 16px;
+    }
+
+    #sgmarflnps_app .sgmarflnps_status {
+      margin-top: 14px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #047857;
+      min-height: 24px;
+    }
+
+    #sgmarflnps_app .sgmarflnps_preview_bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      font-size: 1.2rem;
+    }
+
+    #sgmarflnps_app .sgmarflnps_preview_tip {
+      color: #fde68a;
+      font-size: 1.2rem;
+    }
+
+    /* On-Screen Worksheet Card */
+    #sgmarflnps_app .sgmarflnps_sheet {
+      position: relative;
+      background: #ffffff;
+      border: 2px solid #334155;
+      border-radius: 10px;
+      padding: 26px 24px;
+      margin-bottom: 28px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      color: #111827;
+    }
+
+    #sgmarflnps_app .sgmarflnps_watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-32deg);
+      font-size: 5rem;
+      font-weight: 900;
+      color: rgba(100, 116, 139, 0.07);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      z-index: 0;
+      letter-spacing: 4px;
+    }
+
+    #sgmarflnps_app .sgmarflnps_sheet_inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    #sgmarflnps_app .sgmarflnps_sheet_top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2.5px solid #1e293b;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      gap: 8px;
+    }
+
+    #sgmarflnps_app .sgmarflnps_brand_left {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #1d4ed8;
+    }
+
+    #sgmarflnps_app .sgmarflnps_sheet_num {
+      font-size: 1.2rem;
+      font-weight: 700;
+      background: #f1f5f9;
+      border: 1px solid #94a3b8;
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+
+    #sgmarflnps_app .sgmarflnps_sheet_heading {
+      text-align: center;
+      margin: 0 0 12px 0;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    #sgmarflnps_app .sgmarflnps_meta_table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 14px;
+      font-size: 1.2rem;
+    }
+
+    #sgmarflnps_app .sgmarflnps_meta_table td {
+      border: 1px solid #475569;
+      padding: 7px 10px;
+      vertical-align: top;
+    }
+
+    #sgmarflnps_app .sgmarflnps_lo_banner {
+      background: #f8fafc;
+      border: 1.5px solid #334155;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 1.2rem;
+    }
+
+    #sgmarflnps_app .sgmarflnps_instructions {
+      background: #fefce8;
+      border: 1px dashed #ca8a04;
+      border-radius: 6px;
+      padding: 9px 14px;
+      margin-bottom: 18px;
+      font-size: 1.2rem;
+    }
+
+    #sgmarflnps_app .sgmarflnps_act_card {
+      border: 1.2px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    #sgmarflnps_app .sgmarflnps_act_title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 10px 0;
+    }
+
+    #sgmarflnps_app .sgmarflnps_oral_tag {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #f59e0b;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    #sgmarflnps_app .sgmarflnps_passage {
+      background: #f8fafc;
+      border-left: 4px solid #334155;
+      padding: 12px 14px;
+      margin: 8px 0 12px 0;
+      border-radius: 4px;
+      font-size: 1.2rem;
+    }
+
+    #sgmarflnps_app .sgmarflnps_word_bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 10px 0 12px 0;
+    }
+
+    #sgmarflnps_app .sgmarflnps_chip {
+      display: inline-block;
+      border: 1.5px solid #334155;
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-weight: 700;
+      background: #ffffff;
+      font-size: 1.2rem;
+    }
+
+    #sgmarflnps_app .sgmarflnps_table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 1.2rem;
+    }
+
+    #sgmarflnps_app .sgmarflnps_table th,
+    #sgmarflnps_app .sgmarflnps_table td {
+      border: 1px solid #334155;
+      padding: 8px 10px;
+      text-align: left;
+    }
+
+    #sgmarflnps_app .sgmarflnps_table th {
+      background: #f1f5f9;
+      font-weight: 700;
+    }
+
+    #sgmarflnps_app .sgmarflnps_write_lines {
+      margin-top: 8px;
+    }
+
+    #sgmarflnps_app .sgmarflnps_line {
+      border-bottom: 1.5px dotted #475569;
+      height: 36px;
+      width: 100%;
+    }
+
+    #sgmarflnps_app .sgmarflnps_pic_grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin: 10px 0;
+    }
+
+    #sgmarflnps_app .sgmarflnps_pic_box {
+      border: 1.5px solid #475569;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    #sgmarflnps_app .sgmarflnps_pic_svg {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 8px auto;
+      display: block;
+    }
+
+    #sgmarflnps_app .sgmarflnps_ans_box {
+      border: 1.5px solid #334155;
+      height: 38px;
+      border-radius: 4px;
+      margin-top: 6px;
+      background: #ffffff;
+    }
+
+    #sgmarflnps_app .sgmarflnps_obs_box {
+      border: 2px solid #1e293b;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 20px;
+      background: #f8fafc;
+    }
+
+    #sgmarflnps_app .sgmarflnps_obs_title {
+      margin: 0 0 10px 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+      border-bottom: 1px solid #94a3b8;
+      padding-bottom: 6px;
+    }
+
+    #sgmarflnps_app .sgmarflnps_check_row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 8px 0;
+    }
+
+    #sgmarflnps_app .sgmarflnps_check_item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+    }
+
+    #sgmarflnps_app .sgmarflnps_chk_sq {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 1.8px solid #1e293b;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    #sgmarflnps_app .sgmarflnps_sheet_footer {
+      margin-top: 16px;
+      padding-top: 8px;
+      border-top: 1px solid #94a3b8;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 1.2rem;
+      color: #475569;
+    }
+
+    #sgmarflnps_app .sgmarflnps_footer {
+      text-align: center;
+      padding: 14px 10px 4px 10px;
+      font-size: 1.2rem;
+      color: #475569;
+      border-top: 1px solid #dbe4f0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- SmartGuruji Marathi FLN LO-Based Practice Sheet Generator (Classes 4 to 10 | 2026-27) -->
+<div id="sgmarflnps_app" class="sgmarflnps_wrapper">
+  <!-- Header -->
+  <header class="sgmarflnps_header">
+    <div class="sgmarflnps_badge">FLN 2026-27 • Remedial Practice Tool</div>
+    <h1 class="sgmarflnps_title">SmartGuruji – FLN Marathi Practice Sheet Generator 2026-27</h1>
+    <p class="sgmarflnps_subtitle">इयत्ता 4 ते 10 | LO-1 ते LO-4 | मराठी विषय</p>
+  </header>
+
+  <!-- Control Panel -->
+  <section class="sgmarflnps_panel" aria-label="सरावपत्रिका निवड पर्याय">
+    <div class="sgmarflnps_panel_head">
+      <h2 class="sgmarflnps_panel_title">सरावपत्रिका तयार करण्यासाठी पर्याय निवडा</h2>
+      <button type="button" id="sgmarflnps_btn_guide" class="sgmarflnps_btn sgmarflnps_btn_info">
+        Show Teacher Guidelines
+      </button>
+    </div>
+
+    <!-- Teacher Guidelines Collapsible Box -->
+    <div id="sgmarflnps_guide_box" class="sgmarflnps_guide_box sgmarflnps_hidden" role="region" aria-label="शिक्षक मार्गदर्शक सूचना">
+      <div class="sgmarflnps_guide_header">
+        <strong>शिक्षकांसाठी मार्गदर्शक सूचना (FLN उपचारात्मक अध्यापन 2026-27)</strong>
+        <button type="button" id="sgmarflnps_close_guide" class="sgmarflnps_close_btn" aria-label="बंद करा">✕</button>
+      </div>
+      <ul class="sgmarflnps_guide_list">
+        <li><strong>स्तर निवडताना:</strong> विद्यार्थ्याची इयत्ता न पाहता त्याची प्रत्यक्ष अध्ययन पातळी निवडा. उदाहरणार्थ, इयत्ता 8 मधील विद्यार्थी अक्षर/शब्द स्तरावर असल्यास <em>प्रारंभिक स्तर</em> निवडावा.</li>
+        <li><strong>सरावाचा उद्देश:</strong> ही सरावपत्रिका केवळ परीक्षेसाठी किंवा गुणांकनासाठी नसून विद्यार्थ्यांच्या मूलभूत भाषा कौशल्यांचा (LO-1 ते LO-4) टप्प्याटप्प्याने विकास करण्यासाठी आहे.</li>
+        <li><strong>LO-4 साठी विशेष सूचना:</strong> LO-4 च्या कृती विद्यार्थ्यांकडून वर्गात प्रत्यक्ष बोलून किंवा जोडीने संवाद सादर करून घ्याव्यात आणि खालील निरीक्षण चौकटीत नोंद करावी.</li>
+        <li><strong>छपाई आणि PDF:</strong> <em>Print Practice Sheet</em> किंवा <em>Download PDF</em> बटणावर क्लिक केल्यावर केवळ स्वच्छ A4 सरावपत्रिकाच छापली जाते. PDF जतन करण्यासाठी Print विंडोमध्ये <strong>Save as PDF</strong> निवडा.</li>
+        <li><strong>प्रगती नोंद:</strong> प्रत्येक सरावपत्रिकेच्या शेवटी दिलेली शिक्षक निरीक्षण चौकट भरून विद्यार्थ्यांच्या FLN प्रगती फाईलमध्ये जतन करावी.</li>
+      </ul>
+    </div>
+
+    <form id="sgmarflnps_form" class="sgmarflnps_form" onsubmit="return false;">
+      <!-- Row 1: Class, Subject, LO -->
+      <div class="sgmarflnps_grid">
+        <div class="sgmarflnps_field">
+          <label for="sgmarflnps_class" class="sgmarflnps_label">1. इयत्ता निवडा</label>
+          <select id="sgmarflnps_class" class="sgmarflnps_input">
+            <option value="4">इयत्ता 4 थी</option>
+            <option value="5">इयत्ता 5 वी</option>
+            <option value="6">इयत्ता 6 वी</option>
+            <option value="7">इयत्ता 7 वी</option>
+            <option value="8" selected>इयत्ता 8 वी</option>
+            <option value="9">इयत्ता 9 वी</option>
+            <option value="10">इयत्ता 10 वी</option>
+          </select>
+        </div>
+
+        <div class="sgmarflnps_field">
+          <label for="sgmarflnps_subject" class="sgmarflnps_label">2. विषय</label>
+          <input type="text" id="sgmarflnps_subject" class="sgmarflnps_input sgmarflnps_readonly" value="मराठी" readonly>
+        </div>
+
+        <div class="sgmarflnps_field sgmarflnps_field_wide">
+          <label for="sgmarflnps_lo" class="sgmarflnps_label">3. Learning Outcome (LO) निवडा</label>
+          <select id="sgmarflnps_lo" class="sgmarflnps_input">
+            <option value="LO-1">LO-1: अक्षर, शब्द, वाक्य आणि परिच्छेद वाचन व आकलन.</option>
+            <option value="LO-2">LO-2: वाचलेल्या मजकुरावर आधारित प्रश्नांची उत्तरे देणे व आशय समजून घेणे.</option>
+            <option value="LO-3">LO-3: योग्य शब्द, वाक्ये आणि परिच्छेद स्वतंत्रपणे लिहिणे.</option>
+            <option value="LO-4">LO-4: दैनंदिन व्यवहारात मराठी भाषेचा वापर करणे, बोलणे व संवाद साधणे.</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Row 2: Level, Sheet Count, Activity Count -->
+      <div class="sgmarflnps_grid">
+        <div class="sgmarflnps_field">
+          <label for="sgmarflnps_level" class="sgmarflnps_label">4. सरावाचा स्तर</label>
+          <select id="sgmarflnps_level" class="sgmarflnps_input">
+            <option value="prarambhik">प्रारंभिक स्तर (अक्षर, सोपे शब्द, लहान वाक्ये)</option>
+            <option value="sadhana">साधना स्तर (शब्द, वाक्य, लहान परिच्छेद)</option>
+            <option value="pragati">प्रगती स्तर (आकलन, स्वतंत्र लेखन, संवाद)</option>
+            <option value="pravinya">प्रावीण्य स्तर (स्वतंत्र वाचन, सर्जनशील लेखन)</option>
+          </select>
+        </div>
+
+        <div class="sgmarflnps_field">
+          <label for="sgmarflnps_sheet_count" class="sgmarflnps_label">5. सरावपत्रिकेची संख्या</label>
+          <select id="sgmarflnps_sheet_count" class="sgmarflnps_input">
+            <option value="1" selected>1 सरावपत्रिका</option>
+            <option value="2">2 सरावपत्रिका</option>
+            <option value="3">3 सरावपत्रिका</option>
+            <option value="5">5 सरावपत्रिका</option>
+          </select>
+        </div>
+
+        <div class="sgmarflnps_field">
+          <label for="sgmarflnps_act_count" class="sgmarflnps_label">6. सराव कृतींची संख्या (1 ते 10)</label>
+          <select id="sgmarflnps_act_count" class="sgmarflnps_input">
+            <option value="3">3 कृती</option>
+            <option value="4">4 कृती</option>
+            <option value="5">5 कृती</option>
+            <option value="6" selected>6 कृती</option>
+            <option value="7">7 कृती</option>
+            <option value="8">8 कृती</option>
+            <option value="9">9 कृती</option>
+            <option value="10">10 कृती</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Row 3: Optional Student / School Metadata -->
+      <div class="sgmarflnps_divider_label">विद्यार्थी व शाळेची माहिती (ऐच्छिक – रिकामे ठेवल्यास छपाईमध्ये लिहिण्यासाठी ओळ येईल)</div>
+      <div class="sgmarflnps_grid sgmarflnps_grid_4">
+        <div class="sgmarflnps_field">
+          <label for="sgmarflnps_student" class="sgmarflnps_label">विद्यार्थ्याचे नाव</label>
+          <input type="text" id="sgmarflnps_student" class="sgmarflnps_input" placeholder="उदा. आरव पाटील">
+        </div>
+        <div class="sgmarflnps_field">
+          <label for="sgmarflnps_school" class="sgmarflnps_label">शाळेचे नाव</label>
+          <input type="text" id="sgmarflnps_school" class="sgmarflnps_input" placeholder="उदा. सरकारी मराठी उच्च प्राथमिक शाळा">
+        </div>
+        <div class="sgmarflnps_field">
+          <label for="sgmarflnps_date" class="sgmarflnps_label">दिनांक</label>
+          <input type="date" id="sgmarflnps_date" class="sgmarflnps_input">
+        </div>
+        <div class="sgmarflnps_field">
+          <label for="sgmarflnps_teacher" class="sgmarflnps_label">शिक्षकाचे नाव</label>
+          <input type="text" id="sgmarflnps_teacher" class="sgmarflnps_input" placeholder="उदा. श्री. पाटील सर">
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="sgmarflnps_actions">
+        <button type="button" id="sgmarflnps_btn_generate" class="sgmarflnps_btn sgmarflnps_btn_primary">
+          Generate Practice Sheet
+        </button>
+        <button type="button" id="sgmarflnps_btn_another" class="sgmarflnps_btn sgmarflnps_btn_secondary" disabled>
+          Generate Another Sheet
+        </button>
+        <button type="button" id="sgmarflnps_btn_print" class="sgmarflnps_btn sgmarflnps_btn_success" disabled>
+          Print Practice Sheet
+        </button>
+        <button type="button" id="sgmarflnps_btn_pdf" class="sgmarflnps_btn sgmarflnps_btn_accent" disabled>
+          Download PDF (Save as PDF)
+        </button>
+        <button type="button" id="sgmarflnps_btn_reset" class="sgmarflnps_btn sgmarflnps_btn_danger">
+          Clear / Reset
+        </button>
+      </div>
+
+      <div id="sgmarflnps_status" class="sgmarflnps_status" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <!-- Preview Area -->
+  <section id="sgmarflnps_output_wrap" class="sgmarflnps_output_wrap sgmarflnps_hidden" aria-label="तयार झालेली सरावपत्रिका">
+    <div class="sgmarflnps_preview_bar">
+      <span id="sgmarflnps_preview_info" class="sgmarflnps_preview_info"></span>
+      <span class="sgmarflnps_preview_tip">टीप: PDF साठी 'Download PDF' क्लिक करून Printer मध्ये 'Save as PDF' निवडा.</span>
+    </div>
+    <div id="sgmarflnps_sheets_container" class="sgmarflnps_sheets_container"></div>
+  </section>
+
+  <!-- Tool Footer -->
+  <footer class="sgmarflnps_footer">
+    Prepared for Teachers and Students | <strong>SmartGuruji</strong>
+  </footer>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ---------------- 1. Printable B&W Line-Art SVG Library ---------------- */
+  var SG_SVGS = {
+    ghar: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,12 12,46 88,46" fill="none" stroke="#111" stroke-width="3"/><rect x="22" y="46" width="56" height="42" fill="none" stroke="#111" stroke-width="3"/><rect x="42" y="60" width="16" height="28" fill="none" stroke="#111" stroke-width="2.5"/><rect x="28" y="54" width="10" height="10" fill="none" stroke="#111" stroke-width="2"/><rect x="62" y="54" width="10" height="10" fill="none" stroke="#111" stroke-width="2"/></svg>',
+    zhad: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="43" y="56" width="14" height="32" fill="none" stroke="#111" stroke-width="3"/><circle cx="50" cy="34" r="20" fill="none" stroke="#111" stroke-width="3"/><circle cx="33" cy="45" r="14" fill="none" stroke="#111" stroke-width="2.5"/><circle cx="67" cy="45" r="14" fill="none" stroke="#111" stroke-width="2.5"/><line x1="20" y1="88" x2="80" y2="88" stroke="#111" stroke-width="2.5"/></svg>',
+    surya: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="20" fill="none" stroke="#111" stroke-width="3"/><line x1="50" y1="10" x2="50" y2="24" stroke="#111" stroke-width="3"/><line x1="50" y1="76" x2="50" y2="90" stroke="#111" stroke-width="3"/><line x1="10" y1="50" x2="24" y2="50" stroke="#111" stroke-width="3"/><line x1="76" y1="50" x2="90" y2="50" stroke="#111" stroke-width="3"/><line x1="22" y1="22" x2="32" y2="32" stroke="#111" stroke-width="3"/><line x1="68" y1="68" x2="78" y2="78" stroke="#111" stroke-width="3"/><line x1="78" y1="22" x2="68" y2="32" stroke="#111" stroke-width="3"/><line x1="32" y1="68" x2="22" y2="78" stroke="#111" stroke-width="3"/></svg>',
+    phool: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="38" r="9" fill="none" stroke="#111" stroke-width="2.5"/><circle cx="50" cy="21" r="9" fill="none" stroke="#111" stroke-width="2.5"/><circle cx="66" cy="33" r="9" fill="none" stroke="#111" stroke-width="2.5"/><circle cx="60" cy="51" r="9" fill="none" stroke="#111" stroke-width="2.5"/><circle cx="40" cy="51" r="9" fill="none" stroke="#111" stroke-width="2.5"/><circle cx="34" cy="33" r="9" fill="none" stroke="#111" stroke-width="2.5"/><line x1="50" y1="56" x2="50" y2="90" stroke="#111" stroke-width="3"/><path d="M50,74 Q68,64 68,76 Q58,82 50,74" fill="none" stroke="#111" stroke-width="2.5"/></svg>',
+    masa: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="46" cy="50" rx="28" ry="18" fill="none" stroke="#111" stroke-width="3"/><polygon points="72,50 90,34 90,66" fill="none" stroke="#111" stroke-width="3"/><circle cx="32" cy="46" r="3" fill="#111"/><path d="M44,34 Q52,50 44,66" fill="none" stroke="#111" stroke-width="2"/></svg>',
+    kap: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M22,32 L70,32 L64,74 Q62,82 46,82 Q30,82 28,74 Z" fill="none" stroke="#111" stroke-width="3"/><path d="M69,40 Q86,40 86,54 Q86,68 66,68" fill="none" stroke="#111" stroke-width="3"/><line x1="18" y1="86" x2="76" y2="86" stroke="#111" stroke-width="3"/></svg>',
+    pustak: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M12,26 Q32,20 50,28 L50,80 Q32,72 12,78 Z" fill="none" stroke="#111" stroke-width="3"/><path d="M88,26 Q68,20 50,28 L50,80 Q68,72 88,78 Z" fill="none" stroke="#111" stroke-width="3"/><line x1="20" y1="40" x2="42" y2="40" stroke="#111" stroke-width="2"/><line x1="20" y1="52" x2="42" y2="52" stroke="#111" stroke-width="2"/><line x1="58" y1="40" x2="80" y2="40" stroke="#111" stroke-width="2"/><line x1="58" y1="52" x2="80" y2="52" stroke="#111" stroke-width="2"/></svg>',
+    patang: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,10 82,42 50,74 18,42" fill="none" stroke="#111" stroke-width="3"/><line x1="50" y1="10" x2="50" y2="74" stroke="#111" stroke-width="2"/><line x1="18" y1="42" x2="82" y2="42" stroke="#111" stroke-width="2"/><path d="M50,74 Q42,84 54,92" fill="none" stroke="#111" stroke-width="2.5"/></svg>',
+    chhatri: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M14,50 A36,34 0 0,1 86,50 Z" fill="none" stroke="#111" stroke-width="3"/><line x1="50" y1="16" x2="50" y2="82" stroke="#111" stroke-width="3"/><path d="M50,82 Q50,92 60,90" fill="none" stroke="#111" stroke-width="3"/></svg>',
+    ghadyal: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="34" fill="none" stroke="#111" stroke-width="3"/><line x1="50" y1="50" x2="50" y2="28" stroke="#111" stroke-width="3"/><line x1="50" y1="50" x2="68" y2="50" stroke="#111" stroke-width="3"/><circle cx="50" cy="50" r="3" fill="#111"/></svg>',
+    chendu: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="32" fill="none" stroke="#111" stroke-width="3"/><path d="M26,28 Q50,50 26,72" fill="none" stroke="#111" stroke-width="2.5"/><path d="M74,28 Q50,50 74,72" fill="none" stroke="#111" stroke-width="2.5"/></svg>',
+    hodi: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="14,62 86,62 72,82 28,82" fill="none" stroke="#111" stroke-width="3"/><line x1="50" y1="22" x2="50" y2="62" stroke="#111" stroke-width="3"/><polygon points="50,24 76,54 50,54" fill="none" stroke="#111" stroke-width="2.5"/></svg>',
+    tara: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,10 61,38 90,38 66,56 75,86 50,68 25,86 34,56 10,38 39,38" fill="none" stroke="#111" stroke-width="3"/></svg>',
+    safarchand: '<svg class="sgmarflnps_pic_svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,32 C30,24 18,44 24,68 C29,84 44,88 50,82 C56,88 71,84 76,68 C82,44 70,24 50,32 Z" fill="none" stroke="#111" stroke-width="3"/><line x1="50" y1="32" x2="52" y2="16" stroke="#111" stroke-width="3"/><path d="M52,20 Q68,14 66,26 Q56,28 52,20" fill="none" stroke="#111" stroke-width="2.5"/></svg>',
+    scene_nisarga: '<svg style="width:100%;max-width:340px;height:130px;display:block;margin:8px auto;border:1.5px solid #334155;border-radius:6px;" viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg"><circle cx="270" cy="28" r="14" fill="none" stroke="#111" stroke-width="2.2"/><path d="M10,95 L70,40 L125,95" fill="none" stroke="#111" stroke-width="2.2"/><path d="M85,95 L145,48 L205,95" fill="none" stroke="#111" stroke-width="2.2"/><rect x="200" y="66" width="46" height="30" fill="none" stroke="#111" stroke-width="2.2"/><polygon points="223,44 192,66 254,66" fill="none" stroke="#111" stroke-width="2.2"/><rect x="217" y="78" width="12" height="18" fill="none" stroke="#111" stroke-width="2"/><rect x="275" y="74" width="8" height="22" fill="none" stroke="#111" stroke-width="2"/><circle cx="279" cy="64" r="14" fill="none" stroke="#111" stroke-width="2.2"/><line x1="5" y1="96" x2="315" y2="96" stroke="#111" stroke-width="2"/><path d="M20,108 Q80,100 140,108 T260,108" fill="none" stroke="#111" stroke-width="1.8"/></svg>',
+    scene_shala: '<svg style="width:100%;max-width:340px;height:130px;display:block;margin:8px auto;border:1.5px solid #334155;border-radius:6px;" viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg"><rect x="75" y="42" width="170" height="58" fill="none" stroke="#111" stroke-width="2.2"/><polygon points="160,16 65,42 255,42" fill="none" stroke="#111" stroke-width="2.2"/><rect x="145" y="68" width="30" height="32" fill="none" stroke="#111" stroke-width="2"/><rect x="92" y="56" width="24" height="20" fill="none" stroke="#111" stroke-width="2"/><rect x="204" y="56" width="24" height="20" fill="none" stroke="#111" stroke-width="2"/><line x1="38" y1="30" x2="38" y2="100" stroke="#111" stroke-width="2.2"/><rect x="38" y="30" width="24" height="15" fill="none" stroke="#111" stroke-width="2"/><rect x="276" y="72" width="10" height="28" fill="none" stroke="#111" stroke-width="2"/><circle cx="281" cy="60" r="15" fill="none" stroke="#111" stroke-width="2.2"/><line x1="10" y1="100" x2="310" y2="100" stroke="#111" stroke-width="2"/></svg>'
+  };
+
+  /* ---------------- 2. Metadata Dictionaries ---------------- */
+  var LO_INFO = {
+    'LO-1': {
+      code: 'LO-1',
+      title: 'अक्षर, शब्द, वाक्य आणि परिच्छेद वाचन व आकलन',
+      instruction: 'विद्यार्थ्याने प्रत्येक कृती लक्षपूर्वक वाचून योग्य अक्षर, शब्द किंवा वाक्य लिहावे. गरजेनुसार शिक्षकांची मदत घ्यावी.'
+    },
+    'LO-2': {
+      code: 'LO-2',
+      title: 'वाचलेल्या मजकुरावर आधारित प्रश्नांची उत्तरे देणे व आशय समजून घेणे',
+      instruction: 'दिलेला मजकूर किंवा परिच्छेद शांतपणे दोन वेळा वाचा आणि त्यावर आधारित प्रश्नांची अचूक उत्तरे दिलेल्या जागेत लिहा.'
+    },
+    'LO-3': {
+      code: 'LO-3',
+      title: 'योग्य शब्द, वाक्ये आणि परिच्छेद स्वतंत्रपणे लिहिणे',
+      instruction: 'स्वच्छ, सुवाच्य व शुद्ध हस्ताक्षरात उत्तरे लिहा. वाक्य लिहिताना योग्य विरामचिन्हांचा वापर करा.'
+    },
+    'LO-4': {
+      code: 'LO-4',
+      title: 'दैनंदिन व्यवहारात मराठी भाषेचा वापर करणे, बोलणे व संवाद साधणे',
+      instruction: 'ही सरावपत्रिका बोलणे व संवादासाठी आहे. विद्यार्थ्यांनी कृती वर्गात आत्मविश्वासाने बोलून दाखवाव्यात व आवश्यक तेथे संवाद लिहावा.'
+    }
+  };
+
+  var LEVEL_INFO = {
+    prarambhik: { name: 'प्रारंभिक स्तर', short: 'प्रारंभिक' },
+    sadhana: { name: 'साधना स्तर', short: 'साधना' },
+    pragati: { name: 'प्रगती स्तर', short: 'प्रगती' },
+    pravinya: { name: 'प्रावीण्य स्तर', short: 'प्रावीण्य' }
+  };
+
+  /* ---------------- 3. Utility Functions ---------------- */
+  function shuffle(arr) {
+    var copy = arr.slice();
+    for (var i = copy.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = copy[i];
+      copy[i] = copy[j];
+      copy[j] = tmp;
+    }
+    return copy;
+  }
+
+  function pickOne(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function writeLines(count) {
+    var html = '<div class="sgmarflnps_write_lines">';
+    for (var i = 0; i < count; i++) {
+      html += '<div class="sgmarflnps_line"></div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function escapeHtml(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function formatDateDisplay(val) {
+    if (!val) return '_____ / _____ / 202__';
+    var parts = val.split('-');
+    if (parts.length === 3) {
+      return parts[2] + ' / ' + parts[1] + ' / ' + parts[0];
+    }
+    return val;
+  }
+
+  /* ---------------- 4. Comprehensive Marathi FLN Activity Bank ---------------- */
+  var BANK = {
+    'LO-1': {
+      prarambhik: [
+        function() {
+          var sets = [
+            ['अ', 'क', 'इ', 'म', 'उ', 'र', 'ए', 'न', 'ओ', 'प'],
+            ['आ', 'ग', 'ई', 'ल', 'ऊ', 'स', 'ऐ', 'त', 'औ', 'व']
+          ];
+          var chars = shuffle(pickOne(sets));
+          return {
+            title: 'स्वर आणि व्यंजन ओळखा व योग्य तक्त्यात लिहा.',
+            body: '<div class="sgmarflnps_word_bank">' + chars.map(function(c){ return '<span class="sgmarflnps_chip">' + c + '</span>'; }).join('') + '</div>' +
+              '<table class="sgmarflnps_table"><tr><th>स्वर</th><th>व्यंजन</th></tr><tr><td style="height:56px;"></td><td></td></tr></table>'
+          };
+        },
+        function() {
+          var targets = [
+            { ch: 'क', list: ['क', 'म', 'क', 'ल', 'ब', 'क', 'प', 'क', 'र', 'न'] },
+            { ch: 'म', list: ['न', 'म', 'भ', 'म', 'क', 'ग', 'म', 'स', 'म', 'व'] },
+            { ch: 'स', list: ['र', 'स', 'म', 'स', 'श', 'स', 'न', 'स', 'ल', 'त'] }
+          ];
+          var t = pickOne(targets);
+          return {
+            title: 'दिलेल्या अक्षरासारख्या अक्षरांना गोल (O) करा: लक्ष्य अक्षर [ ' + t.ch + ' ]',
+            body: '<div class="sgmarflnps_word_bank">' + t.list.map(function(c){ return '<span class="sgmarflnps_chip" style="padding:8px 16px;">' + c + '</span>'; }).join('') + '</div>'
+          };
+        },
+        function() {
+          var items = shuffle([
+            { svg: 'ghar', ch: 'घ' },
+            { svg: 'zhad', ch: 'झा' },
+            { svg: 'phool', ch: 'फू' },
+            { svg: 'masa', ch: 'मा' },
+            { svg: 'kap', ch: 'क' },
+            { svg: 'patang', ch: 'प' }
+          ]).slice(0, 4);
+          var rightChars = shuffle(items.map(function(x){ return x.ch; }));
+          var rows = items.map(function(x, idx){
+            return '<tr><td style="text-align:center;">' + SG_SVGS[x.svg] + '</td><td style="text-align:center;font-size:1.5rem;font-weight:800;">' + rightChars[idx] + '</td></tr>';
+          }).join('');
+          return {
+            title: 'चित्र आणि त्याच्या पहिल्या अक्षराची योग्य जोडी लावा.',
+            body: '<table class="sgmarflnps_table"><tr><th style="text-align:center;">चित्र</th><th style="text-align:center;">पहिले अक्षर</th></tr>' + rows + '</table>'
+          };
+        },
+        function() {
+          var blanks = pickOne([
+            ['क, ख, ____, घ', 'च, ____, ज, झ', 'त, थ, ____, ध, न', 'प, फ, ब, ____, म'],
+            ['क, ____, ग, घ', 'ट, ठ, ____, ढ, ण', 'य, र, ____, व', 'श, ष, ____, ह, ळ']
+          ]);
+          return {
+            title: 'रिकाम्या जागी योग्य अक्षर लिहा.',
+            body: '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">' +
+              blanks.map(function(b, i){ return '<div>' + (i+1) + ') ' + b + '</div>'; }).join('') + '</div>'
+          };
+        },
+        function() {
+          var cons = pickOne([
+            { base: 'क', sample: 'क, का, कि, ___ , कु, ___ , के, कै, ___ , कौ, कं, कः' },
+            { base: 'म', sample: 'म, मा, ___ , मी, मु, मू, ___ , मै, मो, ___ , मं, मः' },
+            { base: 'प', sample: 'प, ___ , पि, पी, ___ , पू, पे, ___ , पो, पौ, पं, पः' }
+          ]);
+          return {
+            title: 'बाराखडी पूर्ण करा (अक्षर: ' + cons.base + ').',
+            body: '<p style="margin:6px 0;font-weight:700;letter-spacing:1px;">' + cons.sample + '</p>' + writeLines(1)
+          };
+        },
+        function() {
+          var pics = shuffle([
+            { svg: 'ghar', hint: 'घ ___' },
+            { svg: 'kap', hint: 'क ___' },
+            { svg: 'surya', hint: 'सू ___' },
+            { svg: 'chhatri', hint: 'छ ___' },
+            { svg: 'tara', hint: 'ता ___' },
+            { svg: 'hodi', hint: 'हो ___' }
+          ]).slice(0, 3);
+          return {
+            title: 'चित्र पाहून योग्य शब्द चौकटीत लिहा.',
+            body: '<div class="sgmarflnps_pic_grid">' + pics.map(function(p){
+              return '<div class="sgmarflnps_pic_box">' + SG_SVGS[p.svg] + '<div style="font-size:1.2rem;color:#475569;">सूचना: ' + p.hint + '</div><div class="sgmarflnps_ans_box"></div></div>';
+            }).join('') + '</div>'
+          };
+        },
+        function() {
+          var joins = pickOne([
+            ['क + म + ळ = ____________', 'स + र + ळ = ____________', 'न + ग + र = ____________', 'प + व + न = ____________'],
+            ['ब + द + क = ____________', 'क + ल + श = ____________', 'ग + व + त = ____________', 'ज + व + ळ = ____________']
+          ]);
+          return {
+            title: 'अक्षरे जोडून अर्थपूर्ण शब्द तयार करा.',
+            body: '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">' +
+              joins.map(function(j, i){ return '<div>' + (i+1) + ') ' + j + '</div>'; }).join('') + '</div>'
+          };
+        },
+        function() {
+          var pairs = pickOne([
+            ['म + ा + म + ा = _________', 'क + ा + क + ा = _________', 'प + ा + नी = _________', 'घ + र = _________'],
+            ['स + ा + क + र = _________', 'ग + ा + ज + र = _________', 'ब + ा + ग = _________', 'त + ा + र + ा = _________']
+          ]);
+          return {
+            title: 'अक्षरे व चिन्हे जोडून शब्द वाचा आणि लिहा.',
+            body: '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">' +
+              pairs.map(function(j, i){ return '<div>' + (i+1) + ') ' + j + '</div>'; }).join('') + '</div>'
+          };
+        },
+        function() {
+          var qs = pickOne([
+            ['1) ______ निळे आहे. (आकाश / दगड)', '2) गाय ______ देते. (दूध / साखर)', '3) सूर्य ______ उगवतो. (पूर्वेला / रात्री)'],
+            ['1) पाऊस ______ पडतो. (पावसाळ्यात / उन्हाळ्यात)', '2) मासा ______ राहतो. (पाण्यात / झाडावर)', '3) शाळेत आपण ______ शिकतो. (अभ्यास / झोप)']
+          ]);
+          return {
+            title: 'कंसातील योग्य शब्द निवडून रिकाम्या जागा भरा.',
+            body: qs.map(function(q){ return '<p style="margin:8px 0;">' + q + '</p>'; }).join('')
+          };
+        },
+        function() {
+          var words = pickOne([
+            ['म क ळ → ___________', 'र घ → ___________', 'न प व → ___________', 'द ब क → ___________'],
+            ['ल फ → ___________', 'त ग व → ___________', 'स व पा ऊ → ___________', 'ळ शा → ___________']
+          ]);
+          return {
+            title: 'विस्कळीत अक्षरांपासून योग्य शब्द तयार करा.',
+            body: '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">' +
+              words.map(function(w, i){ return '<div>' + (i+1) + ') ' + w + '</div>'; }).join('') + '</div>'
+          };
+        }
+      ],
+
+      sadhana: [
+        function() {
+          var words = shuffle(['अण्णा', 'पुस्तक', 'पक्का', 'अभ्यास', 'किल्ला', 'स्वच्छ', 'बल्ब', 'सज्जन']);
+          return {
+            title: 'सजातीय आणि विजातीय जोडाक्षरे असलेले शब्द ओळखा व वर्गीकरण करा.',
+            body: '<div class="sgmarflnps_word_bank">' + words.map(function(w){ return '<span class="sgmarflnps_chip">' + w + '</span>'; }).join('') + '</div>' +
+              '<table class="sgmarflnps_table"><tr><th>सजातीय जोडाक्षर (उदा. किल्ला)</th><th>विजातीय जोडाक्षर (उदा. पुस्तक)</th></tr><tr><td style="height:64px;"></td><td></td></tr></table>'
+          };
+        },
+        function() {
+          var words = shuffle(['शाळा', 'विद्यार्थी', 'पाणी', 'प्रार्थना', 'बाग', 'स्वच्छता', 'फूल', 'मित्र']);
+          return {
+            title: 'खालील शब्द मोठ्याने वाचा आणि जोडाक्षरयुक्त व जोडाक्षरविरहित शब्द वेगळे लिहा.',
+            body: '<div class="sgmarflnps_word_bank">' + words.map(function(w){ return '<span class="sgmarflnps_chip">' + w + '</span>'; }).join('') + '</div>' +
+              '<table class="sgmarflnps_table"><tr><th>जोडाक्षरयुक्त शब्द</th><th>जोडाक्षरविरहित शब्द</th></tr><tr><td style="height:60px;"></td><td></td></tr></table>'
+          };
+        },
+        function() {
+          var items = pickOne([
+            ['1) स / पु / क / स्त → ____________', '2) ळा / शा → ____________', '3) स / पा / ऊ → ____________', '4) र / भा / त → ____________'],
+            ['1) ग / ब / चा / गी → ____________', '2) र्य / सू → ____________', '3) क्ष / शि / क → ____________', '4) र / श / त / के / री → ____________']
+          ]);
+          return {
+            title: 'विस्कळीत अक्षरांपासून अर्थपूर्ण शब्द तयार करा.',
+            body: '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">' + items.map(function(x){ return '<div>' + x + '</div>'; }).join('') + '</div>'
+          };
+        },
+        function() {
+          var set = pickOne([
+            {
+              title: 'समानार्थी शब्दांच्या योग्य जोड्या लावा.',
+              left: ['1) झाड', '2) पाणी', '3) आई', '4) सूर्य'],
+              right: ['अ) जल', 'ब) माता', 'क) वृक्ष', 'ड) रवी']
+            },
+            {
+              title: 'विरुद्धार्थी शब्दांच्या योग्य जोड्या लावा.',
+              left: ['1) दिवस', '2) मोठा', '3) स्वच्छ', '4) सुख'],
+              right: ['अ) अस्वच्छ', 'ब) दुःख', 'क) रात्र', 'ड) लहान']
+            }
+          ]);
+          var rows = set.left.map(function(l, i){ return '<tr><td>' + l + '</td><td>' + set.right[i] + '</td></tr>'; }).join('');
+          return {
+            title: set.title,
+            body: '<table class="sgmarflnps_table"><tr><th>गट अ</th><th>गट ब</th></tr>' + rows + '</table>'
+          };
+        },
+        function() {
+          var sents = pickOne([
+            ['1) जातो / शाळेत / रोज / मी.', '2) सुंदर / बागेत / फुले / आहेत.', '3) मदत / आपण / सर्वांना / करावी.'],
+            ['1) वाचतो / पुस्तक / रोज / राजू.', '2) हिरवीगार / झाडे / शेतात / आहेत.', '3) स्वच्छ / परिसर / ठेवावा / आपण.']
+          ]);
+          return {
+            title: 'शब्दांचा योग्य क्रम लावून अर्थपूर्ण वाक्य तयार करा.',
+            body: sents.map(function(s){ return '<p style="margin:6px 0;">' + s + '</p>' + writeLines(1); }).join('')
+          };
+        },
+        function() {
+          var pics = shuffle([
+            { svg: 'pustak', label: 'चित्र 1' },
+            { svg: 'ghadyal', label: 'चित्र 2' },
+            { svg: 'chendu', label: 'चित्र 3' },
+            { svg: 'safarchand', label: 'चित्र 4' }
+          ]).slice(0, 2);
+          return {
+            title: 'चित्र पाहून त्याचे नाव लिहा आणि त्यावर 1 छोटे वाक्य तयार करा.',
+            body: '<div class="sgmarflnps_pic_grid">' + pics.map(function(p){
+              return '<div class="sgmarflnps_pic_box">' + SG_SVGS[p.svg] + '<div>नाव: ______________</div>' + writeLines(1) + '</div>';
+            }).join('') + '</div>'
+          };
+        },
+        function() {
+          var qs = pickOne([
+            ['1) मी रोज शाळेत जाते/जातो. येथे क्रियापद कोणते? (अ) मी (ब) रोज (क) जातो', '2) शेतकरी शेतात धान्य पिकवतो. धान्य कोण पिकवतो? (अ) शिक्षक (ब) शेतकरी (क) डॉक्टर'],
+            ['1) पक्षी आकाशात उंच उडतात. पक्षी कोठे उडतात? (अ) पाण्यात (ब) आकाशात (क) घरात', '2) आपण रोज स्वच्छ पाणी प्यावे. कसे पाणी प्यावे? (अ) स्वच्छ (ब) गढूळ (क) गरम']
+          ]);
+          return {
+            title: 'वाक्य वाचा आणि योग्य पर्यायाला बरोबर (✓) खूण करा.',
+            body: qs.map(function(q){ return '<p style="margin:8px 0;">' + q + '</p>'; }).join('')
+          };
+        },
+        function() {
+          var wrong = pickOne([
+            ['1) मी रोज शाळा जातो.', '2) मुले मैदानावर खेळतो.', '3) गाय गोठ्यात राहतो.'],
+            ['1) आई जेवण बनवतो.', '2) झाडावर पक्षी गातो आहे.', '3) आम्ही अभ्यास करतो आहे.']
+          ]);
+          return {
+            title: 'चुकीचे वाक्य दुरुस्त करून पुन्हा लिहा.',
+            body: wrong.map(function(w){ return '<p style="margin:6px 0;">' + w + '</p>' + writeLines(1); }).join('')
+          };
+        },
+        function() {
+          var wlist = pickOne([['शाळा', 'पाऊस', 'मित्र'], ['पुस्तक', 'झाड', 'स्वच्छता']]);
+          return {
+            title: 'दिलेल्या शब्दांचा वापर करून स्वतःचे 1-1 वाक्य तयार करा.',
+            body: wlist.map(function(w, i){ return '<p style="margin:6px 0;"><strong>' + (i+1) + ') ' + w + ':</strong></p>' + writeLines(1); }).join('')
+          };
+        },
+        function() {
+          var p = 'आमच्या गावात एक सुंदर शाळा आहे. शाळेच्या आवारात आंबा, कडुलिंब आणि गुलमोहराची झाडे आहेत. मुले रोज सकाळी बागेला पाणी घालतात. सर्वजण शाळा स्वच्छ ठेवतात.';
+          return {
+            title: 'खालील लहान परिच्छेद मोठ्याने वाचा आणि त्यातील कोणत्याही 4 नामांचे शब्द लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div>1) _______________</div><div>2) _______________</div><div>3) _______________</div><div>4) _______________</div></div>'
+          };
+        }
+      ],
+
+      pragati: [
+        function() {
+          var p = pickOne([
+            'पाणी हेच जीवन आहे. माणसे, प्राणी आणि वनस्पती यांना जगण्यासाठी पाण्याची नितांत गरज असते. आज अनेक गावांमध्ये उन्हाळ्यात पाणीटंचाई जाणवते. म्हणून आपण प्रत्येकाने पाण्याचा वापर काटकसरीने केला पाहिजे. नळ उघडा राहू नये याची काळजी घेणे ही आपली जबाबदारी आहे.',
+            'झाडे आपल्याला शुद्ध हवा, सावली, फळे आणि फुले देतात. झाडांच्या मुळांमुळे जमिनीची धूप थांबते आणि पाऊस पडण्यास मदत होते. आपण आपल्या वाढदिवसाला किमान एक रोप लावून त्याचे संगोपन केले पाहिजे. हिरवागार परिसर मनाला आनंद देतो.'
+          ]);
+          return {
+            title: 'परिच्छेद काळजीपूर्वक वाचा आणि त्यातील 5 महत्त्वाचे शब्द शोधून लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;"><div>1) ____________</div><div>2) ____________</div><div>3) ____________</div><div>4) ____________</div><div>5) ____________</div></div>'
+          };
+        },
+        function() {
+          var p = 'शाळेतील ग्रंथालयात विविध विषयांची अनेक पुस्तके असतात. गोष्टींची पुस्तके, चरित्रे आणि सामान्य ज्ञानाची पुस्तके वाचल्याने आपले विचार समृद्ध होतात. वाचनामुळे शब्दसंपत्ती वाढते आणि लेखन सुधारते. म्हणून प्रत्येक विद्यार्थ्याने रोज किमान 15 मिनिटे अवांतर वाचन करावे.';
+          return {
+            title: 'खालील परिच्छेद वाचून योग्य शीर्षक निवडा व त्यावर 2 वाक्ये स्वतःच्या शब्दांत लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;"><strong>पर्याय:</strong> (अ) खेळाचे मैदान &nbsp;&nbsp; (ब) वाचनाचे महत्त्व &nbsp;&nbsp; (क) गावची यात्रा</p>' +
+              '<p style="margin:6px 0;">योग्य शीर्षक: ________________________</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var sents = [
+            '1) विद्यार्थ्यांनी / नियमित / अभ्यास / केला / पाहिजे.',
+            '2) स्वच्छतेमुळे / आपले / आरोग्य / चांगले / राहते.',
+            '3) निसर्गाचे / रक्षण / करणे / आपले / कर्तव्य / आहे.'
+          ];
+          return {
+            title: 'विस्कळीत शब्दांचा योग्य क्रम लावून अचूक वाक्य तयार करा.',
+            body: sents.map(function(s){ return '<p style="margin:6px 0;">' + s + '</p>' + writeLines(1); }).join('')
+          };
+        },
+        function() {
+          var wrong = [
+            '1) आम्ही काल शाळेच्या सहलीला जाणार आहोत.',
+            '2) मुली मैदानावर कबड्डी खेळत होते.',
+            '3) मला गोड आंबे खूप आवडतो.'
+          ];
+          return {
+            title: 'वाक्यातील काळ किंवा लिंग-वचनाची चूक ओळखून वाक्य दुरुस्त करा.',
+            body: wrong.map(function(w){ return '<p style="margin:6px 0;">' + w + '</p>' + writeLines(1); }).join('')
+          };
+        },
+        function() {
+          var blanks = [
+            '1) शेतकरी शेतात कष्ट _________. (करतो / करतात / केले)',
+            '2) निसर्ग आपल्याला भरभरून _________. (देतो / घेतो / पाडतो)',
+            '3) चांगली पुस्तके आपले खरे _________ असतात. (मित्र / शत्रू / प्रवासी)'
+          ];
+          return {
+            title: 'कंसातील योग्य शब्द निवडून वाक्य पूर्ण करा.',
+            body: blanks.map(function(b){ return '<p style="margin:8px 0;">' + b + '</p>'; }).join('')
+          };
+        },
+        function() {
+          var pairs = [
+            ['1) आनंद', 'समानार्थी: ____________', 'विरुद्धार्थी: ____________'],
+            ['2) प्रकाश', 'समानार्थी: ____________', 'विरुद्धार्थी: ____________'],
+            ['3) मित्र', 'समानार्थी: ____________', 'विरुद्धार्थी: ____________']
+          ];
+          return {
+            title: 'दिलेल्या शब्दांचे समानार्थी व विरुद्धार्थी शब्द लिहा.',
+            body: '<table class="sgmarflnps_table"><tr><th>शब्द</th><th>समानार्थी शब्द</th><th>विरुद्धार्थी शब्द</th></tr>' +
+              pairs.map(function(r){ return '<tr><td>' + r[0] + '</td><td></td><td></td></tr>'; }).join('') + '</table>'
+          };
+        },
+        function() {
+          var p = 'विद्यार्थ्यांनी स्वतःचे आरोग्य उत्तम ठेवण्यासाठी दररोज व्यायाम करावा. सकाळची शुद्ध हवा आणि सूर्याची कोवळी किरणे शरीराला ऊर्जा देतात. पौष्टिक अन्न खाल्ल्याने अभ्यासात लक्ष लागते.';
+          return {
+            title: 'परिच्छेद वाचा आणि त्यातील 5 जोडाक्षरयुक्त शब्द शोधून लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;"><div>1) ____________</div><div>2) ____________</div><div>3) ____________</div><div>4) ____________</div><div>5) ____________</div></div>'
+          };
+        },
+        function() {
+          var phrases = ['मदत करणे', 'वेळेचे पालन करणे', 'स्वच्छता ठेवणे'];
+          return {
+            title: 'दिलेल्या शब्दसमूहांचा स्वतःच्या वाक्यात उपयोग करा.',
+            body: phrases.map(function(p, i){ return '<p style="margin:6px 0;"><strong>' + (i+1) + ') ' + p + ':</strong></p>' + writeLines(1); }).join('')
+          };
+        },
+        function() {
+          var qs = [
+            '1) रामूने काल नवीन पुस्तक वाचले. — काळ: _______________',
+            '2) मी उद्या गावाला जाईन. — काळ: _______________',
+            '3) पक्षी झाडावर गाणे गात आहेत. — काळ: _______________'
+          ];
+          return {
+            title: 'वाक्य वाचा आणि त्याचा काळ (भूतकाळ / वर्तमानकाळ / भविष्यकाळ) ओळखून लिहा.',
+            body: qs.map(function(q){ return '<p style="margin:8px 0;">' + q + '</p>'; }).join('')
+          };
+        },
+        function() {
+          var p = 'वेळ ही अत्यंत मौल्यवान संपत्ती आहे. गेलेली वेळ कधीही परत येत नाही. जे विद्यार्थी वेळेचे योग्य नियोजन करतात, त्यांना अभ्यासात आणि खेळात दोन्हीकडे यश मिळते. आळस सोडून नियमित काम करणे ही यशाची पहिली पायरी आहे.';
+          return {
+            title: 'परिच्छेद वाचून त्याचा आशय 2 ते 3 वाक्यांत स्वतःच्या शब्दांत लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' + writeLines(3)
+          };
+        }
+      ],
+
+      pravinya: [
+        function() {
+          var p = 'डिजिटल युगात मोबाईल आणि इंटरनेटमुळे माहिती क्षणार्धात उपलब्ध होते. अभ्यासासाठी याचा योग्य वापर केल्यास ज्ञान वाढते. परंतु तासन्तास स्क्रीनसमोर बसल्याने डोळ्यांवर ताण येतो आणि मैदानी खेळांकडे दुर्लक्ष होते. म्हणून तंत्रज्ञानाचा संतुलित वापर करणे गरजेचे आहे.';
+          return {
+            title: 'परिच्छेद काळजीपूर्वक वाचा आणि त्याची मध्यवर्ती कल्पना 3 वाक्यांत लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' + writeLines(3)
+          };
+        },
+        function() {
+          var p = 'पावसाचे पाणी जमिनीत मुरवणे म्हणजेच जलसंधारण. पूर्वी गावोगावी तलाव, विहिरी आणि बारवा जतन केल्या जात होत्या. आज आपण छतावरील पावसाचे पाणी साठवून (रेनवॉटर हार्वेस्टिंग) उन्हाळ्यातील पाणीप्रश्न सोडवू शकतो. पाण्याचा प्रत्येक थेंब मोलाचा आहे.';
+          return {
+            title: 'परिच्छेद वाचून त्याला योग्य शीर्षक द्या आणि ते शीर्षक का निवडले ते लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;"><strong>शीर्षक:</strong> ______________________________</p>' +
+              '<p style="margin:6px 0;"><strong>कारण:</strong></p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'सुमनने शाळेच्या विज्ञान प्रदर्शनात सौरऊर्जेवर चालणारे उपकरण तयार केले. परीक्षकांनी तिच्या नवकल्पनेचे भरभरून कौतुक केले. अपारंपरिक ऊर्जेचा वापर केल्याने प्रदूषण कमी होते, हे तिने सर्वांना समजावून सांगितले.';
+          return {
+            title: 'परिच्छेदातील शब्दांचा अर्थ संदर्भावरून ओळखून लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) नवकल्पना: ________________________</p>' +
+              '<p style="margin:6px 0;">2) कौतुक: ________________________</p>' +
+              '<p style="margin:6px 0;">3) अपारंपरिक ऊर्जा: ________________________</p>'
+          };
+        },
+        function() {
+          var bad = 'शाळेच्या मैदानावर आज क्रीडा स्पर्धा होती. सर्व विध्यार्थी वेळेवर उपस्थीत राहिले. धावण्याच्या शर्यतीत अनील पहीला आला. मुख्याध्यापकांनी त्याचे अभिंनदन केले.';
+          return {
+            title: 'खालील अशुद्ध उतारा शुद्धलेखनाच्या नियमांनुसार दुरुस्त करून पुन्हा लिहा.',
+            body: '<div class="sgmarflnps_passage">' + bad + '</div>' + writeLines(3)
+          };
+        },
+        function() {
+          var idioms = ['आनंद गगनात न मावणे', 'कंबर कसणे', 'कान देऊन ऐकणे'];
+          return {
+            title: 'दिलेल्या वाक्प्रचारांचा अर्थ लिहून त्यांचा स्वतःच्या वाक्यात उपयोग करा.',
+            body: idioms.map(function(id, i){
+              return '<p style="margin:6px 0;"><strong>' + (i+1) + ') ' + id + '</strong> (अर्थ: ____________________)</p>' + writeLines(1);
+            }).join('')
+          };
+        },
+        function() {
+          var steps = [
+            '(अ) त्यातून सुंदर रोपटे उगवले आणि काही वर्षांनी त्याचे मोठे झाड झाले.',
+            '(ब) रवीने पावसाळ्यात अंगणात एक आंब्याची कोय लावली.',
+            '(क) आता त्या झाडाची गोड फळे सर्व गावकरी खातात.',
+            '(ड) तो रोज त्या रोपाला पाणी घालत असे व त्याची काळजी घेत असे.'
+          ];
+          return {
+            title: 'खालील घटनांचा योग्य क्रम लावून सुसंगत परिच्छेद पुन्हा लिहा.',
+            body: steps.map(function(s){ return '<p style="margin:4px 0;">' + s + '</p>'; }).join('') + writeLines(4)
+          };
+        },
+        function() {
+          var p = 'मराठी भाषेला समृद्ध सांस्कृतिक वारसा लाभला आहे. संत ज्ञानेश्वर, संत तुकाराम, सावित्रीबाई फुले आणि अनेक साहित्यिकांनी मराठी भाषा समृद्ध केली. आपल्या मातृभाषेचा सन्मान करणे आणि तिचा शुद्ध वापर करणे हे प्रत्येक विद्यार्थ्याने जपले पाहिजे.';
+          return {
+            title: 'परिच्छेद वाचा आणि त्यावर आधारित 3 अर्थपूर्ण प्रश्न स्वतः तयार करा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' + writeLines(3)
+          };
+        },
+        function() {
+          var qs = [
+            '1) तो रोज अभ्यास करतो. (नकारार्थी वाक्य करा, अर्थ बदलू नका)',
+            '2) ही शाळा खूप सुंदर आहे. (उद्गारवाचक वाक्य करा)',
+            '3) मी उद्या पुस्तक वाचेन. (भूतकाळात रूपांतर करा)'
+          ];
+          return {
+            title: 'सूचनेप्रमाणे वाक्य रूपांतरण करा.',
+            body: qs.map(function(q){ return '<p style="margin:6px 0;">' + q + '</p>' + writeLines(1); }).join('')
+          };
+        },
+        function() {
+          var p = 'ग्रामस्वच्छता अभियानात शाळेतील विद्यार्थ्यांनी सक्रिय सहभाग घेतला. त्यांनी गावातील रस्ते साफ केले, कचराकुंड्या ठेवल्या आणि प्लास्टिक वापर टाळण्याचे आवाहन केले. विद्यार्थ्यांचा उत्साह पाहून ग्रामस्थही या कामात सहभागी झाले. काही दिवसांतच संपूर्ण गाव स्वच्छ व सुंदर दिसू लागले.';
+          return {
+            title: 'परिच्छेद वाचून त्याचा एक-तृतीयांश सारांश स्वतःच्या शब्दांत लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' + writeLines(3)
+          };
+        },
+        function() {
+          var words = ['हार (फुलांचा हार / पराभव)', 'कर (हात / टॅक्स)', 'मान (गळा / सन्मान)'];
+          return {
+            title: 'एकाच शब्दाचे दोन वेगवेगळे अर्थ स्पष्ट करणारी वाक्ये तयार करा (कोणतेही 2 शब्द).',
+            body: words.map(function(w, i){ return '<p style="margin:5px 0;">' + (i+1) + ') ' + w + '</p>'; }).join('') + writeLines(4)
+          };
+        }
+      ]
+    },
+
+    'LO-2': {
+      prarambhik: [
+        function() {
+          var p = 'राजू इयत्ता 4 थीत शिकतो. त्याच्या शाळेचे नाव ज्ञानदीप आहे. रोज सकाळी तो 9 वाजता शाळेत जातो. त्याला मराठी आणि गणित हे विषय खूप आवडतात.';
+          return {
+            title: 'छोटा उतारा वाचा आणि एका वाक्यात उत्तरे लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) राजू कोणत्या इयत्तेत शिकतो?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">2) राजू रोज किती वाजता शाळेत जातो?</p>' + writeLines(1)
+          };
+        },
+        function() {
+          var p = 'सोनूच्या घरी एक पांढरा ससा आहे. सशाला गाजर आणि कोवळे गवत खायला खूप आवडते. सोनू रोज सशाला स्वच्छ पाणी देते.';
+          return {
+            title: 'उतारा वाचून योग्य पर्यायाला गोल करा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) सशाचा रंग कसा आहे? &nbsp; (अ) काळा &nbsp; (ब) पांढरा &nbsp; (क) लाल</p>' +
+              '<p style="margin:6px 0;">2) सशाला काय खायला आवडते? &nbsp; (अ) गाजर &nbsp; (ब) भात &nbsp; (क) दगड</p>'
+          };
+        },
+        function() {
+          var p = 'पावसाळा ऋतूत आकाशात काळे ढग येतात. मोर पिसारा फुलवून नाचतो. शेतकरी शेतात पेरणी करतो. सर्वत्र हिरवेगार गवत उगवते.';
+          return {
+            title: 'विधान बरोबर की चूक ते लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) पावसाळ्यात मोर पिसारा फुलवून नाचतो. [ __________ ]</p>' +
+              '<p style="margin:6px 0;">2) पावसाळ्यात शेतात पेरणी केली जात नाही. [ __________ ]</p>' +
+              '<p style="margin:6px 0;">3) सर्वत्र हिरवेगार गवत उगवते. [ __________ ]</p>'
+          };
+        },
+        function() {
+          return {
+            title: 'प्रश्न आणि त्यांची योग्य उत्तरे यांच्या जोड्या लावा.',
+            body: '<table class="sgmarflnps_table"><tr><th>प्रश्न</th><th>उत्तर</th></tr>' +
+              '<tr><td>1) आपल्याला कोण शिकवते?</td><td>अ) पाण्यात</td></tr>' +
+              '<tr><td>2) मासा कोठे राहतो?</td><td>ब) रात्री</td></tr>' +
+              '<tr><td>3) चंद्र केव्हा दिसतो?</td><td>क) शिक्षक</td></tr>' +
+              '<tr><td>4) झाडाला काय येतात?</td><td>ड) फळे व फुले</td></tr></table>'
+          };
+        },
+        function() {
+          var p = 'आजी रोज रात्री आम्हाला छान गोष्टी सांगते. काल तिने एका चतुर कावळ्याची गोष्ट सांगितली. कावळ्याने मडक्यात खडे टाकून पाणी वर आणले आणि पाणी प्यायला.';
+          return {
+            title: 'उतारा वाचून कोण, काय व कसे या प्रश्नांची उत्तरे लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) गोष्टी कोण सांगते? _______________________</p>' +
+              '<p style="margin:6px 0;">2) कावळ्याने मडक्यात काय टाकले? _______________________</p>'
+          };
+        },
+        function() {
+          var p = 'सकाळी लवकर उठावे. दात घासून अंघोळ करावी. स्वच्छ कपडे घालून शाळेत जावे. दररोज अभ्यास करावा.';
+          return {
+            title: 'उतारा वाचून त्याला योग्य शीर्षक निवडा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">पर्याय: (अ) चांगल्या सवयी &nbsp;&nbsp; (ब) बाजार &nbsp;&nbsp; (क) खेळ</p>' +
+              '<p style="margin:6px 0;">योग्य शीर्षक: _________________________</p>'
+          };
+        },
+        function() {
+          var p = 'मीनाच्या बागेत गुलाब, मोगरा आणि जास्वंद ही फुले आहेत. सकाळी फुलांवर रंगीत फुलपाखरे बसतात.';
+          return {
+            title: 'माहिती वाचून रिकाम्या जागा भरा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) मीनाच्या बागेत गुलाब, मोगरा आणि _________ ही फुले आहेत.</p>' +
+              '<p style="margin:6px 0;">2) सकाळी फुलांवर रंगीत _________ बसतात.</p>'
+          };
+        },
+        function() {
+          var p = 'रविवारी शाळेला सुट्टी असते. त्या दिवशी अमन आपल्या आई-बाबांसोबत मामाच्या गावाला जातो. तेथे तो शेतात खेळतो.';
+          return {
+            title: 'उतारा वाचून प्रश्नांची उत्तरे लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) शाळेला सुट्टी केव्हा असते?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">2) अमन कोठे जातो?</p>' + writeLines(1)
+          };
+        },
+        function() {
+          var p = 'गाय आपल्याला दूध देते. दुधापासून दही, ताक, लोणी आणि तूप बनते. दूध आरोग्यासाठी उत्तम असते.';
+          return {
+            title: 'दिलेल्या माहितीवरून निष्कर्ष ओळखा व लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) दुधापासून कोणते दोन पदार्थ बनतात? ________________________</p>' +
+              '<p style="margin:6px 0;">2) आपण दूध का प्यावे? ________________________</p>'
+          };
+        },
+        function() {
+          return {
+            title: 'चित्र व सूचना वाचून उत्तर लिहा.',
+            body: '<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">' + SG_SVGS.chhatri +
+              '<div><p style="margin:4px 0;">1) हे चित्र कशाचे आहे? ______________</p><p style="margin:4px 0;">2) याचा वापर आपण केव्हा करतो? ______________</p></div></div>'
+          };
+        }
+      ],
+
+      sadhana: [
+        function() {
+          var p = 'अजय आणि विजय हे दोघे खूप चांगले मित्र आहेत. ते एकाच शाळेत शिकतात. शाळा सुटल्यावर ते मैदानावर खो-खो खेळतात. घरी आल्यावर दोघे मिळून गृहपाठ पूर्ण करतात.';
+          return {
+            title: 'परिच्छेद वाचून कोण, कोठे व काय या प्रश्नांची उत्तरे लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) चांगले मित्र कोण आहेत?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">2) ते मैदानावर कोणता खेळ खेळतात?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">3) घरी आल्यावर ते काय करतात?</p>' + writeLines(1)
+          };
+        },
+        function() {
+          var p = 'संतुलित आहारामुळे आपले शरीर निरोगी राहते. हिरव्या पालेभाज्या, ताजी फळे, कडधान्ये आणि दूध यांचा आहारात समावेश असावा. उघड्यावरील व शिळे अन्न खाल्ल्यास आपण आजारी पडू शकतो.';
+          return {
+            title: 'परिच्छेद वाचा आणि विधाने बरोबर की चूक ते लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) हिरव्या पालेभाज्या खाल्ल्याने शरीर निरोगी राहते. [ ________ ]</p>' +
+              '<p style="margin:6px 0;">2) उघड्यावरील अन्न खाणे आरोग्यासाठी चांगले असते. [ ________ ]</p>' +
+              '<p style="margin:6px 0;">3) आहारात फळे व कडधान्ये असावीत. [ ________ ]</p>'
+          };
+        },
+        function() {
+          var p = 'दर शनिवारी आमच्या शाळेत स्वच्छता मोहीम राबवली जाते. मुले वर्गातील कचरा गोळा करून कचराकुंडीत टाकतात. शिक्षकांच्या मदतीने बागेतील झाडांना पाणी घातले जाते. त्यामुळे आमची शाळा नेहमी सुंदर दिसते.';
+          return {
+            title: 'परिच्छेद वाचा व योग्य पर्याय निवडा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) स्वच्छता मोहीम कोणत्या दिवशी राबवली जाते? (अ) सोमवार (ब) शनिवार (क) बुधवार</p>' +
+              '<p style="margin:6px 0;">2) कचरा कोठे टाकला जातो? (अ) मैदानात (ब) कचराकुंडीत (क) वर्गात</p>' +
+              '<p style="margin:6px 0;">3) या परिच्छेदाला योग्य शीर्षक द्या: ______________________</p>'
+          };
+        },
+        function() {
+          return {
+            title: 'प्रश्न आणि उत्तरे यांची योग्य जोडी लावा.',
+            body: '<table class="sgmarflnps_table"><tr><th>प्रश्न</th><th>उत्तर</th></tr>' +
+              '<tr><td>1) पुस्तके कोठे मिळतात?</td><td>अ) शेतकरी</td></tr>' +
+              '<tr><td>2) शेतात अन्नधान्य कोण पिकवतो?</td><td>ब) डॉक्टर</td></tr>' +
+              '<tr><td>3) आजारी पडल्यावर कोण औषध देतो?</td><td>क) ग्रंथालयात</td></tr>' +
+              '<tr><td>4) पत्रे घरोघरी कोण पोहोचवतो?</td><td>ड) पोस्टमन</td></tr></table>'
+          };
+        },
+        function() {
+          var p = 'सूचना फलक: उद्या दिनांक 15 ऑगस्ट रोजी सकाळी 7:30 वाजता शाळेच्या मैदानावर ध्वजारोहण कार्यक्रम आहे. सर्व विद्यार्थ्यांनी स्वच्छ गणवेशात सकाळी 7:15 वाजता उपस्थित राहावे. — मुख्याध्यापक.';
+          return {
+            title: 'सूचना फलक वाचून प्रश्नांची उत्तरे लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) ध्वजारोहण किती वाजता आहे? _____________________</p>' +
+              '<p style="margin:6px 0;">2) विद्यार्थ्यांनी कोणत्या वेळेस व कसे उपस्थित राहावे?</p>' + writeLines(1)
+          };
+        },
+        function() {
+          var p = 'एकदा एका जंगलात सिंह झोपला होता. एक छोटा उंदीर त्याच्या अंगावर खेळू लागला. सिंहाने त्याला पकडले, पण उंदराने विनंती केल्यावर सोडून दिले. पुढे सिंह जाळ्यात अडकला तेव्हा त्याच उंदराने जाळे कुरतडून सिंहाचे प्राण वाचवले.';
+          return {
+            title: 'गोष्ट वाचा आणि त्यातून कोणता बोध (निष्कर्ष) मिळतो ते लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) सिंहाचे प्राण कोणी व कसे वाचवले?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">2) या गोष्टीतून तुम्हाला काय शिकायला मिळाले?</p>' + writeLines(1)
+          };
+        },
+        function() {
+          var p = 'आमच्या गावातील आठवडे बाजार दर मंगळवारी भरतो. बाजारात ताजी भाजीपाला, फळे, धान्य आणि कपडे मिळतात. शेतकरी स्वतःच्या शेतातील भाजी विकायला आणतात. मी आईसोबत कापडी पिशवी घेऊन बाजारात जातो.';
+          return {
+            title: 'परिच्छेद वाचून उत्तरे लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) गावचा बाजार कोणत्या वारी भरतो? _____________________</p>' +
+              '<p style="margin:6px 0;">2) बाजारात जाताना कापडी पिशवी का न्यावी? (स्वतःच्या शब्दांत लिहा)</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'वेळापत्रक: सकाळी 10:00 — प्रार्थना | 10:30 — मराठी | 11:15 — गणित | 12:00 — विज्ञान | 12:45 — मधली सुट्टी.';
+          return {
+            title: 'दिलेले वेळापत्रक वाचून उत्तरे लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) मराठीचा तास किती वाजता आहे? _____________________</p>' +
+              '<p style="margin:6px 0;">2) गणितानंतर कोणता विषय आहे? _____________________</p>' +
+              '<p style="margin:6px 0;">3) मधली सुट्टी किती वाजता होते? _____________________</p>'
+          };
+        },
+        function() {
+          var p = 'पक्षी आपले घरटे काड्या, गवत, कापूस आणि पानांपासून मोठ्या कौशल्याने बनवतात. सुगरण पक्ष्याचा खोपा तर खूपच सुंदर असतो. उन्हाळ्यात पक्ष्यांसाठी अंगणात एका भांड्यात पाणी ठेवणे हे पुण्याचे काम आहे.';
+          return {
+            title: 'परिच्छेद वाचून एका वाक्यात उत्तरे लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) पक्षी घरटे कशापासून बनवतात?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">2) उन्हाळ्यात आपण पक्ष्यांना कशी मदत करू शकतो?</p>' + writeLines(1)
+          };
+        },
+        function() {
+          var p = 'रस्त्यावरून चालताना नेहमी डाव्या बाजूने चालावे. रस्ता ओलांडताना आधी उजवीकडे व नंतर डावीकडे पाहावे. लाल दिवा लागल्यावर वाहने थांबतात आणि हिरवा दिवा लागल्यावर पुढे जातात.';
+          return {
+            title: 'परिच्छेद वाचून योग्य उत्तर लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) रस्त्यावरून कोणत्या बाजूने चालावे? _____________________</p>' +
+              '<p style="margin:6px 0;">2) लाल आणि हिरव्या दिव्याचा अर्थ काय?</p>' + writeLines(1)
+          };
+        }
+      ],
+
+      pragati: [
+        function() {
+          var p = 'डॉ. ए. पी. जे. अब्दुल कलाम यांना भारताचे "मिसाईल मॅन" म्हणून ओळखले जाते. त्यांचे बालपण अत्यंत साधेपणात गेले. शिक्षण पूर्ण करण्यासाठी त्यांनी लहानपणी वर्तमानपत्रे विकण्याचे काम केले. प्रचंड मेहनत, जिद्द आणि वाचनाची आवड यामुळे ते भारताचे राष्ट्रपती झाले.';
+          return {
+            title: 'परिच्छेद वाचून प्रश्नांची उत्तरे स्वतःच्या शब्दांत लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) डॉ. कलाम यांनी शिक्षण पूर्ण करण्यासाठी कोणते काम केले?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">2) त्यांच्या यशाचे गमक कोणते होते?</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'प्लास्टिकच्या पिशव्या मातीत कुजत नाहीत. त्यामुळे जमिनीची सुपीकता कमी होते आणि गटारे तुंबतात. काही वेळा जनावरे प्लास्टिक खाऊन आजारी पडतात. म्हणून आपण प्लास्टिक ऐवजी कापडी किंवा कागदी पिशव्यांचा वापर केला पाहिजे.';
+          return {
+            title: 'परिच्छेद वाचा आणि का व कसे या प्रश्नांची उत्तरे द्या.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) प्लास्टिकच्या पिशव्या पर्यावरणासाठी घातक का आहेत?</p>' + writeLines(2) +
+              '<p style="margin:6px 0;">2) प्लास्टिकचा वापर कमी करण्यासाठी तुम्ही काय कराल?</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'व्यायाम आणि मैदानी खेळांमुळे शरीर मजबूत होते आणि मन प्रसन्न राहते. कबड्डी, खो-खो, धावणे व योगासने यांमुळे एकाग्रता वाढते. सतत टीव्ही किंवा मोबाईल पाहिल्याने आळस वाढतो. त्यामुळे प्रत्येक विद्यार्थ्याने रोज किमान 1 तास मैदानावर खेळावे.';
+          return {
+            title: 'परिच्छेद वाचून योग्य शीर्षक द्या व दोन निष्कर्ष लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) योग्य शीर्षक: ____________________________</p>' +
+              '<p style="margin:6px 0;">2) मैदानी खेळ व मोबाईल यांतील फरक 2 वाक्यांत लिहा:</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'गावातील एका शाळेत "माझे झाड, माझी जबाबदारी" हा उपक्रम सुरू केला. प्रत्येक विद्यार्थ्याने एक रोप लावले आणि त्याला स्वतःचे नाव दिले. एका वर्षात शाळेचा संपूर्ण परिसर हिरवागार झाला आणि पक्ष्यांचा किलबिलाट वाढला.';
+          return {
+            title: 'उतारा वाचून प्रश्नांची उत्तरे द्या.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) शाळेत कोणता उपक्रम राबवला गेला?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">2) या उपक्रमाचा परिसरावर काय परिणाम झाला?</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'वीज ही अत्यंत मौल्यवान ऊर्जा आहे. खोलीतून बाहेर जाताना दिवे आणि पंखे बंद करण्याची सवय लावावी. दिवसा नैसर्गिक सूर्यप्रकाशाचा वापर करावा. वीज बचत म्हणजेच वीज निर्मिती होय.';
+          return {
+            title: 'विधान बरोबर की चूक ते लिहा व एका प्रश्नाचे उत्तर द्या.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) दिवसा शक्यतो सूर्यप्रकाशाचा वापर करावा. [ ________ ]</p>' +
+              '<p style="margin:6px 0;">2) "वीज बचत म्हणजेच वीज निर्मिती" असे का म्हटले आहे?</p>' + writeLines(2)
+          };
+        },
+        function() {
+          return {
+            title: 'पुढील कारण आणि परिणाम यांच्या योग्य जोड्या लावा.',
+            body: '<table class="sgmarflnps_table"><tr><th>कारण</th><th>परिणाम</th></tr>' +
+              '<tr><td>1) झाडे तोडल्यामुळे</td><td>अ) ज्ञान व शब्दसंपत्ती वाढते</td></tr>' +
+              '<tr><td>2) नियमित वाचन केल्यामुळे</td><td>ब) पावसाचे प्रमाण कमी होते</td></tr>' +
+              '<tr><td>3) स्वच्छ पाणी प्यायल्यामुळे</td><td>क) वेळेवर काम पूर्ण होते</td></tr>' +
+              '<tr><td>4) नियोजन केल्यामुळे</td><td>ड) आजार दूर राहतात</td></tr></table>'
+          };
+        },
+        function() {
+          var p = 'मधुमाशी फुलांतील मध गोळा करते आणि परागीभवनास मदत करते. यामुळे शेतीतील पिके आणि फळे चांगली येतात. निसर्गातील प्रत्येक लहान जीव परिसंस्थेचा समतोल राखण्यासाठी महत्त्वाचा असतो.';
+          return {
+            title: 'परिच्छेद वाचून निष्कर्ष काढा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) मधुमाशीचा शेतीला कसा फायदा होतो?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">2) निसर्गातील लहान जीवांचे संरक्षण का करावे?</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'बचत करण्याची सवय लहानपणापासूनच लावावी. अनावश्यक खर्च टाळून दरमहा थोडे पैसे गल्ल्यात किंवा बँकेत साठवावेत. अडचणीच्या वेळी किंवा शिक्षणासाठी ही बचत खूप उपयोगी पडते.';
+          return {
+            title: 'परिच्छेद वाचून स्वतःच्या शब्दांत उत्तरे लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) बचत कशी करावी?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">2) तुम्ही तुमची बचत कोणत्या चांगल्या कामासाठी वापराल?</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'सावित्रीबाई फुले यांनी मुलींच्या शिक्षणासाठी पहिली शाळा सुरू केली. त्यांना अनेक अडचणींचा सामना करावा लागला, पण त्या डगमगल्या नाहीत. त्यांच्या कार्यामुळेच आज लाखो मुली उच्च शिक्षण घेत आहेत.';
+          return {
+            title: 'उतारा वाचून प्रश्नांची उत्तरे द्या.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) सावित्रीबाई फुले यांनी कोणते महान कार्य केले?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">2) त्यांच्या जीवनातून आपल्याला कोणती प्रेरणा मिळते?</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'अन्नाची नासाडी टाळणे ही आजची मोठी गरज आहे. लग्नसमारंभात किंवा घरात ताटात लागेल तेवढेच अन्न घ्यावे. जगात अनेक लोकांना एक वेळचे जेवणही मिळत नाही, याची जाणीव आपण ठेवली पाहिजे.';
+          return {
+            title: 'परिच्छेद वाचून उत्तर लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) अन्नाची नासाडी टाळण्यासाठी दोन उपाय सुचवा.</p>' + writeLines(2)
+          };
+        }
+      ],
+
+      pravinya: [
+        function() {
+          var p = 'लोकशाहीमध्ये प्रत्येक नागरिकाला हक्कांसोबत काही मूलभूत कर्तव्येही दिली आहेत. सार्वजनिक मालमत्तेचे रक्षण करणे, पर्यावरणाची काळजी घेणे आणि कायद्याचे पालन करणे हे सुजाण नागरिकाचे लक्षण आहे. केवळ हक्कांची मागणी न करता कर्तव्यांची जाणीव ठेवल्यास देश प्रगती करतो.';
+          return {
+            title: 'परिच्छेद वाचून विचारपूर्वक उत्तरे लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) सुजाण नागरिकाची कोणती लक्षणे या परिच्छेदात सांगितली आहेत?</p>' + writeLines(2) +
+              '<p style="margin:6px 0;">2) विद्यार्थी म्हणून तुम्ही कोणती दोन कर्तव्ये पार पाडाल?</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'सेंद्रिय शेतीमध्ये रासायनिक खतांऐवजी शेणखत, गांडूळखत आणि नैसर्गिक औषधांचा वापर केला जातो. यामुळे जमिनीचा पोत टिकून राहतो आणि विषमुक्त अन्न मिळते. सुरुवातीला उत्पादन थोडे कमी असले तरी दीर्घकाळात शेतकरी व ग्राहक दोघांनाही याचा फायदा होतो.';
+          return {
+            title: 'परिच्छेद वाचून विश्लेषण करा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) सेंद्रिय शेतीचे कोणतेही दोन फायदे लिहा.</p>' + writeLines(2) +
+              '<p style="margin:6px 0;">2) या परिच्छेदाला चपखल शीर्षक द्या: ______________________</p>'
+          };
+        },
+        function() {
+          var p = 'अपयश ही यशाची पहिली पायरी असते. थॉमस एडिसन यांना विजेचा दिवा शोधताना शेकडो वेळा अपयश आले, पण ते खचले नाहीत. प्रत्येक चुकीतून नवीन काहीतरी शिकण्याची वृत्ती माणसाला महान बनवते.';
+          return {
+            title: 'परिच्छेद वाचून स्वतःचे मत व निष्कर्ष लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) "अपयश ही यशाची पहिली पायरी असते" — हे विधान तुमच्या शब्दांत स्पष्ट करा.</p>' + writeLines(3)
+          };
+        },
+        function() {
+          var p = 'वर्तमानपत्र वाचल्याने जगात व आपल्या परिसरात घडणाऱ्या घडामोडींची माहिती मिळते. केवळ बातम्याच नव्हे तर संपादकीय लेख, विज्ञान पुरवणी आणि क्रीडा वृत्तांत वाचल्याने सामान्य ज्ञान व चिकित्सक विचारशक्ती वाढते.';
+          return {
+            title: 'उतारा वाचून प्रश्नांची उत्तरे द्या.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) वर्तमानपत्र वाचण्याचे कोणते फायदे परिच्छेदात सांगितले आहेत?</p>' + writeLines(2) +
+              '<p style="margin:6px 0;">2) तुम्हाला वर्तमानपत्रातील कोणता विभाग सर्वाधिक आवडतो व का?</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'कर्नाटक व महाराष्ट्र या राज्यांच्या सीमाभागात मराठी आणि कन्नड भाषा गुण्यागोविंदाने नांदतात. अनेक लोक दोन्ही भाषा सहज बोलतात. विविध भाषा शिकल्याने सांस्कृतिक देवाणघेवाण वाढते आणि आपले विचार अधिक व्यापक होतात.';
+          return {
+            title: 'परिच्छेद वाचून उत्तरे लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) अनेक भाषा शिकण्याचे काय फायदे होतात?</p>' + writeLines(2) +
+              '<p style="margin:6px 0;">2) परिच्छेदातील मुख्य संदेश एका वाक्यात लिहा.</p>' + writeLines(1)
+          };
+        },
+        function() {
+          var p = 'वाढत्या शहरीकरणामुळे झाडांची संख्या कमी होऊन तापमानात वाढ होत आहे. यालाच जागतिक तापमानवाढ म्हणतात. यावर मात करण्यासाठी वृक्षारोपण, सार्वजनिक वाहतुकीचा वापर आणि सौरऊर्जेचा स्वीकार करणे आवश्यक आहे.';
+          return {
+            title: 'माहितीवरून कारण-परिणाम व उपाय लिहा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) जागतिक तापमानवाढीचे मुख्य कारण काय आहे?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">2) तापमानवाढ रोखण्यासाठी तीन उपाय लिहा.</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'सहकार्य आणि संघभावना यामुळे कठीण कामही सोपे होते. क्रिकेट असो वा शाळेचा प्रकल्प, प्रत्येकाने आपली भूमिका प्रामाणिकपणे बजावल्यास संपूर्ण संघ विजयी होतो. एकमेकांच्या मतांचा आदर करणे ही यशस्वी संघाची ओळख आहे.';
+          return {
+            title: 'परिच्छेद वाचून उत्तरे द्या.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) यशस्वी संघाची ओळख कोणती?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">2) शाळेत तुम्ही संघभावनेने केलेला एखादा उपक्रम 2 वाक्यांत लिहा.</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'सायबर सुरक्षा आजच्या काळात अत्यंत आवश्यक झाली आहे. अनोळखी लिंकवर क्लिक न करणे, स्वतःचा पासवर्ड किंवा ओटीपी कोणालाही न सांगणे ही सुरक्षित इंटरनेट वापराची मूलभूत तत्त्वे आहेत.';
+          return {
+            title: 'परिच्छेद वाचून बरोबर की चूक लिहा व उत्तर द्या.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) आपला ओटीपी अनोळखी व्यक्तीला सांगावा. [ ________ ]</p>' +
+              '<p style="margin:6px 0;">2) इंटरनेट वापरताना कोणती दोन पथ्ये पाळावीत?</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'पुस्तक हा माणसाचा असा मित्र आहे जो कधीही दगा देत नाही. एकांतात पुस्तके सोबत करतात, अडचणीत मार्गदर्शन करतात आणि मनाला नवी उमेद देतात. म्हणूनच प्रत्येक घरात एक छोटेसे ग्रंथालय असावे.';
+          return {
+            title: 'परिच्छेद वाचून आशय स्पष्ट करा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) पुस्तकाला सर्वोत्तम मित्र का म्हटले आहे?</p>' + writeLines(2) +
+              '<p style="margin:6px 0;">2) तुम्हाला आवडलेल्या एका पुस्तकाचे नाव व कारण लिहा.</p>' + writeLines(2)
+          };
+        },
+        function() {
+          var p = 'पायी चालणे आणि सायकल चालवणे हे आरोग्यासाठी व पर्यावरणासाठी दुहेरी फायदेशीर आहे. यामुळे इंधनाची बचत होते, हवा प्रदूषण टळते आणि शरीर तंदुरुस्त राहते.';
+          return {
+            title: 'परिच्छेद वाचून दुहेरी फायदा स्पष्ट करा.',
+            body: '<div class="sgmarflnps_passage">' + p + '</div>' +
+              '<p style="margin:6px 0;">1) सायकल चालवण्याचे आरोग्यावरील आणि पर्यावरणावरील फायदे वेगवेगळे लिहा.</p>' + writeLines(2)
+          };
+        }
+      ]
+    },
+
+    'LO-3': {
+      prarambhik: [
+        function() {
+          var pics = shuffle([
+            { svg: 'zhad' }, { svg: 'phool' }, { svg: 'masa' }, { svg: 'patang' }, { svg: 'chendu' }, { svg: 'ghar' }
+          ]).slice(0, 3);
+          return {
+            title: 'चित्र पाहून त्याचे अचूक नाव चौकटीत लिहा.',
+            body: '<div class="sgmarflnps_pic_grid">' + pics.map(function(p){
+              return '<div class="sgmarflnps_pic_box">' + SG_SVGS[p.svg] + '<div class="sgmarflnps_ans_box"></div></div>';
+            }).join('') + '</div>'
+          };
+        },
+        function() {
+          var words = ['शाळा', 'पाणी', 'पुस्तक', 'झाड', 'सूर्य', 'मित्र'];
+          return {
+            title: 'पुढील शब्द पाहून सुंदर व स्वच्छ हस्ताक्षरात समोर लिहा (अनुलेखन).',
+            body: '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">' +
+              words.map(function(w){ return '<div><strong>' + w + '</strong> : _______________</div>'; }).join('') + '</div>'
+          };
+        },
+        function() {
+          var items = [
+            '1) माझे नाव _____________________ आहे.',
+            '2) मी इयत्ता _____ मध्ये शिकतो/शिकते.',
+            '3) माझ्या गावाचे नाव _____________________ आहे.',
+            '4) मला _____________________ हा खेळ आवडतो.'
+          ];
+          return {
+            title: 'अपूर्ण वाक्ये पूर्ण करा.',
+            body: items.map(function(x){ return '<p style="margin:8px 0;">' + x + '</p>'; }).join('')
+          };
+        },
+        function() {
+          var words = pickOne([['घर', 'फूल', 'गाय'], ['शाळा', 'पाणी', 'आंबा']]);
+          return {
+            title: 'दिलेल्या शब्दांपासून 1-1 सोपे वाक्य तयार करा.',
+            body: words.map(function(w, i){ return '<p style="margin:6px 0;"><strong>' + (i+1) + ') ' + w + ':</strong></p>' + writeLines(1); }).join('')
+          };
+        },
+        function() {
+          return {
+            title: 'तुमच्या शाळेतील आणि घरातील प्रत्येकी 3 वस्तूंची नावे लिहा.',
+            body: '<table class="sgmarflnps_table"><tr><th>शाळेतील वस्तू (3)</th><th>घरातील वस्तू (3)</th></tr>' +
+              '<tr><td>1) _______________<br>2) _______________<br>3) _______________</td><td>1) _______________<br>2) _______________<br>3) _______________</td></tr></table>'
+          };
+        },
+        function() {
+          var s = ['1) आहे / सुंदर / फूल.', '2) पितो / पाणी / मी.', '3) उगवला / सूर्य / सकाळी.'];
+          return {
+            title: 'विस्कळीत शब्दांचा योग्य क्रम लावून वाक्य लिहा.',
+            body: s.map(function(x){ return '<p style="margin:6px 0;">' + x + '</p>' + writeLines(1); }).join('')
+          };
+        },
+        function() {
+          var qs = [
+            '1) मी शाळेत जातो ____  ( . / ? )',
+            '2) तुझे नाव काय आहे ____  ( . / ? )',
+            '3) आज पाऊस आला ____  ( . / ? )',
+            '4) तू कोठे राहतोस ____  ( . / ? )'
+          ];
+          return {
+            title: 'वाक्याच्या शेवटी योग्य विरामचिन्ह (. किंवा ?) लावा.',
+            body: qs.map(function(q){ return '<p style="margin:8px 0;">' + q + '</p>'; }).join('')
+          };
+        },
+        function() {
+          var pairs = [
+            '1) पानी / पाणी  → ______________',
+            '2) शाळा / शाला  → ______________',
+            '3) सुर्य / सूर्य  → ______________',
+            '4) पस्तक / पुस्तक → ______________'
+          ];
+          return {
+            title: 'शुद्ध शब्द ओळखा आणि समोर लिहा.',
+            body: '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">' + pairs.map(function(p){ return '<div>' + p + '</div>'; }).join('') + '</div>'
+          };
+        },
+        function() {
+          return {
+            title: 'चित्र पाहून रिकाम्या जागी योग्य शब्द लिहून वाक्य पूर्ण करा.',
+            body: '<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">' + SG_SVGS.surya +
+              '<div><p style="margin:6px 0;">हा ___________ आहे. तो आपल्याला ___________ देतो.</p></div></div>'
+          };
+        },
+        function() {
+          return {
+            title: 'तुम्हाला आवडणाऱ्या 4 फळांची किंवा फुलांची नावे लिहा.',
+            body: '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div>1) _______________</div><div>2) _______________</div><div>3) _______________</div><div>4) _______________</div></div>'
+          };
+        }
+      ],
+
+      sadhana: [
+        function() {
+          var words = pickOne([['मैदान', 'शिक्षक', 'पावसाळा'], ['बाजार', 'पुस्तक', 'मदत']]);
+          return {
+            title: 'दिलेल्या शब्दांपासून अर्थपूर्ण वाक्ये तयार करा.',
+            body: words.map(function(w, i){ return '<p style="margin:6px 0;"><strong>' + (i+1) + ') ' + w + ':</strong></p>' + writeLines(1); }).join('')
+          };
+        },
+        function() {
+          var items = [
+            '1) मला माझी शाळा खूप आवडते, कारण ______________________________.',
+            '2) आपण झाडे लावली पाहिजेत, कारण ______________________________.',
+            '3) सुट्टीच्या दिवशी मी ______________________________.'
+          ];
+          return {
+            title: 'अपूर्ण वाक्ये स्वतःच्या विचाराने पूर्ण करा.',
+            body: items.map(function(x){ return '<p style="margin:10px 0;">' + x + '</p>'; }).join('')
+          };
+        },
+        function() {
+          var lines = [
+            '(अ) नंतर त्याने स्वच्छ कपडे घातले आणि शाळेची तयारी केली.',
+            '(ब) रवी सकाळी 6 वाजता उठला.',
+            '(क) आईने दिलेला डबा घेऊन तो शाळेत गेला.',
+            '(ड) त्याने दात घासले व अंघोळ केली.'
+          ];
+          return {
+            title: 'विस्कळीत वाक्यांचा योग्य क्रम लावून पुन्हा लिहा.',
+            body: lines.map(function(l){ return '<p style="margin:4px 0;">' + l + '</p>'; }).join('') + writeLines(4)
+          };
+        },
+        function() {
+          return {
+            title: 'चित्रवर्णन: खालील निसर्गचित्र पाहून 4 वाक्ये लिहा.',
+            body: SG_SVGS.scene_nisarga + writeLines(4)
+          };
+        },
+        function() {
+          var topic = pickOne(['माझी शाळा', 'माझा आवडता मित्र', 'माझे गाव', 'पावसाळा']);
+          return {
+            title: 'दिलेल्या विषयावर 4 ते 5 वाक्ये लिहा: विषय — "' + topic + '"',
+            body: writeLines(5)
+          };
+        },
+        function() {
+          var sents = [
+            '1) अरे वा किती सुंदर फूल आहे हे',
+            '2) तू काल शाळेत का आला नाहीस',
+            '3) आईने बाजारातून आंबे केळी आणि द्राक्षे आणली'
+          ];
+          return {
+            title: 'योग्य विरामचिन्हे ( .  ,  ?  ! ) वापरून वाक्ये पुन्हा लिहा.',
+            body: sents.map(function(s){ return '<p style="margin:6px 0;">' + s + '</p>' + writeLines(1); }).join('')
+          };
+        },
+        function() {
+          var wrong = [
+            '1) माझा मीत्र रोज आभ्यास करतो.',
+            '2) शाळेच्या मैदानात हिरवे गवत उगवल आहे.',
+            '3) मी पाणी पिवून शाळेत गेलो.'
+          ];
+          return {
+            title: 'शुद्धलेखन सराव: चुकीचे शब्द दुरुस्त करून वाक्ये पुन्हा लिहा.',
+            body: wrong.map(function(w){ return '<p style="margin:6px 0;">' + w + '</p>' + writeLines(1); }).join('')
+          };
+        },
+        function() {
+          return {
+            title: 'दैनंदिन प्रसंग लेखन: सकाळी उठल्यापासून शाळेत जाईपर्यंत तुम्ही काय करता ते 4 वाक्यांत लिहा.',
+            body: writeLines(4)
+          };
+        },
+        function() {
+          var ans = [
+            '1) उत्तर: माझ्या शाळेचे नाव सरकारी मराठी शाळा आहे. → प्रश्न: _______________________',
+            '2) उत्तर: मला कबड्डी खेळायला आवडते. → प्रश्न: _______________________'
+          ];
+          return {
+            title: 'दिलेल्या उत्तरांवरून योग्य प्रश्न तयार करून लिहा.',
+            body: ans.map(function(a){ return '<p style="margin:8px 0;">' + a + '</p>'; }).join('')
+          };
+        },
+        function() {
+          return {
+            title: 'अपुरा संवाद पूर्ण करा (दोन मित्रांमधील).',
+            body: '<p style="margin:6px 0;">रोहन: नमस्कार सुमित! आज तू कोणते पुस्तक वाचत आहेस?</p>' +
+              '<p style="margin:6px 0;">सुमित: _____________________________________________</p>' +
+              '<p style="margin:6px 0;">रोहन: अरे वा! मलाही ते पुस्तक वाचायला देशील का?</p>' +
+              '<p style="margin:6px 0;">सुमित: _____________________________________________</p>'
+          };
+        }
+      ],
+
+      pragati: [
+        function() {
+          var topic = pickOne([
+            { name: 'वृक्षारोपण व झाडांचे महत्त्व', hints: 'मुद्दे: झाडांचे उपयोग – शुद्ध हवा व पाऊस – झाडे तोडण्याचे तोटे – आपली जबाबदारी.' },
+            { name: 'माझा आवडता सण', hints: 'मुद्दे: सणाचे नाव – तयारी व सजावट – कुटुंबासोबत आनंद – सणाचा संदेश.' }
+          ]);
+          return {
+            title: 'दिलेल्या मुद्द्यांच्या आधारे 5 ते 6 वाक्यांचा परिच्छेद लिहा: "' + topic.name + '"',
+            body: '<p style="margin:6px 0;font-style:italic;">' + topic.hints + '</p>' + writeLines(6)
+          };
+        },
+        function() {
+          var topic = pickOne(['शाळेतील सहलीचा अविस्मरणीय दिवस', 'पावसाळ्यातील एक मजेशीर प्रसंग', 'आजी-आजोबांसोबत घालवलेली सुट्टी']);
+          return {
+            title: 'अनुभव लेखन: "' + topic + '" या विषयावर 5 ते 6 वाक्ये लिहा.',
+            body: writeLines(6)
+          };
+        },
+        function() {
+          return {
+            title: 'चित्रवर्णन: शाळेचे खालील चित्र पाहून 5 ते 6 वाक्यांचा परिच्छेद लिहा.',
+            body: SG_SVGS.scene_shala + writeLines(5)
+          };
+        },
+        function() {
+          return {
+            title: 'दैनंदिन प्रसंगावर लेखन: आठवडे बाजारात आई-वडिलांसोबत गेल्याचा अनुभव 5 वाक्यांत लिहा.',
+            body: writeLines(5)
+          };
+        },
+        function() {
+          var s = [
+            '(1) त्यामुळे वर्गातील सर्व मुलांनी त्याचे टाळ्या वाजवून कौतुक केले.',
+            '(2) वर्गात स्वच्छता स्पर्धा जाहीर करण्यात आली होती.',
+            '(3) अमन आणि त्याच्या गटाने वर्ग अत्यंत स्वच्छ व सुंदर सजवला.',
+            '(4) निकाल जाहीर झाला तेव्हा अमनच्या गटाला प्रथम क्रमांक मिळाला.'
+          ];
+          return {
+            title: 'विस्कळीत वाक्यांचा योग्य क्रम लावून अर्थपूर्ण परिच्छेद लिहा.',
+            body: s.map(function(x){ return '<p style="margin:4px 0;">' + x + '</p>'; }).join('') + writeLines(4)
+          };
+        },
+        function() {
+          var txt = 'शिक्षक म्हणाले मुलांनो उद्या आपली सहल जाणार आहे सर्व मुले आनंदाने ओरडली वा खूप मज्जा येईल आपण कोठे जाणार आहोत सर';
+          return {
+            title: 'योग्य विरामचिन्हे ( .  ,  ?  !  " " ) घालून उतारा पुन्हा लिहा.',
+            body: '<div class="sgmarflnps_passage">' + txt + '</div>' + writeLines(3)
+          };
+        },
+        function() {
+          var bad = 'विद्यार्थानी नेहमी वेळेचे पालण करावे. ग्रंथालयातील पूस्तके काळजीपुर्वक वाचावीत. स्वच्छता ठेवल्याने आरोग्य चांगले राहाते.';
+          return {
+            title: 'शुद्धलेखन दुरुस्ती: खालील उताऱ्यातील चुका दुरुस्त करून पुन्हा लिहा.',
+            body: '<div class="sgmarflnps_passage">' + bad + '</div>' + writeLines(3)
+          };
+        },
+        function() {
+          return {
+            title: 'आजारी असल्यामुळे 2 दिवसांच्या रजेसाठी वर्गशिक्षकांना छोटा अर्ज लिहा.',
+            body: '<p style="margin:4px 0;">प्रति, माननीय वर्गशिक्षक, ______________________</p>' + writeLines(5)
+          };
+        },
+        function() {
+          return {
+            title: 'तुलनात्मक लेखन: गाव आणि शहर यांतील फरक 4 वाक्यांत लिहा.',
+            body: writeLines(4)
+          };
+        },
+        function() {
+          return {
+            title: 'वाक्य विस्तार करा: "पक्षी उडतात." या छोट्या वाक्यात विशेषणे व क्रियाविशेषणे जोडून 3 वेगवेगळी मोठी वाक्ये तयार करा.',
+            body: writeLines(3)
+          };
+        }
+      ],
+
+      pravinya: [
+        function() {
+          var topic = pickOne(['पाणी बचत: काळाची गरज', 'वाचनाचे माझ्या जीवनातील महत्त्व', 'मोबाईलचे फायदे आणि तोटे']);
+          return {
+            title: 'स्वतंत्र परिच्छेद लेखन: "' + topic + '" या विषयावर 7 ते 8 वाक्यांचा परिच्छेद लिहा.',
+            body: writeLines(7)
+          };
+        },
+        function() {
+          var topic = pickOne(['मी झाड बोलतोय...', 'मी शाळेचे पुस्तक बोलतोय...']);
+          return {
+            title: 'आत्मकथन / कल्पक लेखन: "' + topic + '" या विषयावर 6 ते 7 वाक्ये लिहा.',
+            body: writeLines(6)
+          };
+        },
+        function() {
+          return {
+            title: 'औपचारिक पत्रलेखन: शाळेच्या ग्रंथालयात नवीन गोष्टींची पुस्तके मागवण्यासाठी मुख्याध्यापकांना विनंती अर्ज लिहा.',
+            body: writeLines(7)
+          };
+        },
+        function() {
+          return {
+            title: 'अपूर्ण गोष्ट स्वतःच्या कल्पनेने पूर्ण करा व योग्य शीर्षक द्या.',
+            body: '<div class="sgmarflnps_passage">संध्याकाळची वेळ होती. शाळेतून घरी परतताना सानिका आणि प्रणवला रस्त्याच्या कडेला एक जखमी पक्षी पडलेला दिसला. त्यांनी लगेच...</div>' + writeLines(5)
+          };
+        },
+        function() {
+          return {
+            title: 'सूचना फलक / जाहिरात तयार करा: तुमच्या शाळेत आयोजित केलेल्या "वृक्षारोपण व स्वच्छता मोहिमेसाठी" आकर्षक सूचना तयार करा.',
+            body: '<div style="border:1.5px dashed #334155;border-radius:6px;padding:10px;min-height:140px;"></div>'
+          };
+        },
+        function() {
+          return {
+            title: 'बातमी लेखन: तुमच्या शाळेत साजरा झालेल्या "क्रीडा दिन" किंवा "विज्ञान प्रदर्शन" याची 5 ते 6 ओळींत बातमी तयार करा.',
+            body: '<p style="margin:4px 0;"><strong>शीर्षक:</strong> ___________________________________</p>' + writeLines(5)
+          };
+        },
+        function() {
+          return {
+            title: 'खालील वाक्प्रचारांचा वापर करून एक सलग 5 वाक्यांचा छोटा परिच्छेद लिहा: (1) मनावर घेणे, (2) कष्ट करणे, (3) आनंद गगनात न मावणे.',
+            body: writeLines(5)
+          };
+        },
+        function() {
+          var bad = 'आजच्या युगात विद्न्यानाने खुप प्रगती केली आहे. परंतु पऱ्यावरणाचे संतुलन बिघडत चालले आहे. मानवाने निसर्गाशी मैञी केली पाहीजे अन्यथा भविष्यात गंभीर समस्या निर्माण होतील.';
+          return {
+            title: 'शुद्धलेखन व विरामचिन्ह दुरुस्ती करून उतारा पुन्हा लिहा.',
+            body: '<div class="sgmarflnps_passage">' + bad + '</div>' + writeLines(4)
+          };
+        },
+        function() {
+          return {
+            title: 'समस्या व उपाय लेखन: तुमच्या गावात किंवा परिसरात कचऱ्याची समस्या सोडवण्यासाठी तुम्ही कोणते 4 व्यावहारिक उपाय सुचवाल?',
+            body: writeLines(5)
+          };
+        },
+        function() {
+          return {
+            title: 'फायदे व तोटे तक्ता: "ऑनलाइन अभ्यास" याचे प्रत्येकी 3 फायदे व 3 तोटे लिहा.',
+            body: '<table class="sgmarflnps_table"><tr><th>फायदे (3)</th><th>तोटे (3)</th></tr><tr><td style="height:105px;"></td><td></td></tr></table>'
+          };
+        }
+      ]
+    },
+
+    'LO-4': {
+      prarambhik: [
+        function() {
+          return {
+            oral: true,
+            title: 'स्वतःचा परिचय द्या (बोलण्याची कृती + लेखन).',
+            body: '<p style="margin:6px 0;">खालील वाक्ये पूर्ण करून वर्गात मोठ्याने व स्पष्टपणे बोलून दाखवा:</p>' +
+              '<p style="margin:6px 0;">1) नमस्कार! माझे नाव ___________________ आहे.</p>' +
+              '<p style="margin:6px 0;">2) मी इयत्ता _____ मध्ये शिकतो/शिकते.</p>' +
+              '<p style="margin:6px 0;">3) माझ्या गावाचे नाव ___________________ आहे.</p>' +
+              '<p style="margin:6px 0;">4) मला ___________________ आवडते.</p>'
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'चित्र पाहून 3 सोपी वाक्ये वर्गात बोला.',
+            body: '<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">' + SG_SVGS.ghar +
+              '<div><p style="margin:4px 0;"><strong>सूचना:</strong> हे चित्र पाहून आपल्या घराविषयी 3 वाक्ये बोला (उदा. माझे घर सुंदर आहे...).</p></div></div>' + writeLines(2)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'दैनंदिन संभाषणातील शिष्टाचार शब्द बोला व लिहा.',
+            body: '<table class="sgmarflnps_table"><tr><th>प्रसंग</th><th>तुम्ही काय म्हणाल? (योग्य शब्द निवडा: धन्यवाद / क्षमा करा / नमस्कार / कृपया)</th></tr>' +
+              '<tr><td>1) सकाळी शिक्षकांना भेटल्यावर</td><td>____________________</td></tr>' +
+              '<tr><td>2) मित्राने पेन दिल्यावर</td><td>____________________</td></tr>' +
+              '<tr><td>3) चुकीने धक्का लागल्यावर</td><td>____________________</td></tr>' +
+              '<tr><td>4) पुस्तक मागताना</td><td>____________________</td></tr></table>'
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'शिक्षक व विद्यार्थी संवाद पूर्ण करा व जोडीने बोलून दाखवा.',
+            body: '<p style="margin:6px 0;">शिक्षक: सुप्रभात! तू आज गृहपाठ आणलास का?</p>' +
+              '<p style="margin:6px 0;">विद्यार्थी: हो सर/मॅडम, ___________________________________.</p>' +
+              '<p style="margin:6px 0;">शिक्षक: छान! तुझी वही मला दाखव.</p>' +
+              '<p style="margin:6px 0;">विद्यार्थी: ___________________________________.</p>'
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'दुकानात वस्तू खरेदी करतानाचा सोपा संवाद (Role Play).',
+            body: '<p style="margin:6px 0;">एका विद्यार्थ्याने दुकानदार व दुसऱ्याने ग्राहक बनून खालील संवाद सादर करा:</p>' +
+              '<p style="margin:6px 0;">ग्राहक: काका, मला एक वही आणि पेन द्या.</p>' +
+              '<p style="margin:6px 0;">दुकानदार: हे घे बाळा, एकूण 30 रुपये झाले.</p>' +
+              '<p style="margin:6px 0;">ग्राहक: ___________________________________ (पैसे देऊन आभार माना).</p>'
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'मित्राशी ओळख: नवीन मित्राशी बोलताना तुम्ही कोणते 3 प्रश्न विचाराल ते बोला व लिहा.',
+            body: writeLines(3)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'शाळेतील दैनंदिन प्रसंग: वर्गात येण्यासाठी किंवा पाणी पिण्यासाठी शिक्षकांची परवानगी मराठीत कशी मागाल? बोलून दाखवा.',
+            body: writeLines(2)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'आवडता खेळ किंवा फळ: तुमच्या आवडत्या फळाबद्दल 3 वाक्ये वर्गात बोला.',
+            body: '<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">' + SG_SVGS.safarchand +
+              '<div><p style="margin:4px 0;">रंग, चव आणि उपयोग याबद्दल 3 वाक्ये बोला.</p></div></div>' + writeLines(2)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'प्रश्न विचारणे व उत्तर देणे (जोडीने कृती).',
+            body: '<p style="margin:6px 0;">तुमच्या शेजारच्या मित्राला खालील प्रश्न विचारा व त्याची उत्तरे ऐकून लिहा:</p>' +
+              '<p style="margin:6px 0;">1) तुझा आवडता विषय कोणता? — उत्तर: _______________________</p>' +
+              '<p style="margin:6px 0;">2) तू शाळेत कसा येतोस? — उत्तर: _______________________</p>'
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'भूमिका अभिनय (Role Play): वाढदिवसाच्या शुभेच्छा देणे.',
+            body: '<p style="margin:6px 0;">तुमच्या मित्राचा आज वाढदिवस आहे. त्याला मराठीत शुभेच्छा कशा द्याल ते वर्गात बोलून दाखवा व 2 वाक्ये लिहा.</p>' + writeLines(2)
+          };
+        }
+      ],
+
+      sadhana: [
+        function() {
+          return {
+            oral: true,
+            title: 'माझा परिवार: तुमच्या कुटुंबातील सदस्यांची ओळख 4 ते 5 वाक्यांत वर्गात करून द्या.',
+            body: writeLines(3)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'स्टेशनरी दुकानातील संवाद पूर्ण करा व सादर करा.',
+            body: '<p style="margin:6px 0;">विद्यार्थी: नमस्कार काका, मला इयत्ता _____ ची मराठीची वही हवी आहे.</p>' +
+              '<p style="margin:6px 0;">दुकानदार: _____________________________________________</p>' +
+              '<p style="margin:6px 0;">विद्यार्थी: या वहीची किंमत किती आहे?</p>' +
+              '<p style="margin:6px 0;">दुकानदार: _____________________________________________</p>' +
+              '<p style="margin:6px 0;">विद्यार्थी: _____________________________________________</p>'
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'चित्र पाहून 4 ते 5 वाक्ये वर्गात बोला (निसर्ग दृश्य).',
+            body: SG_SVGS.scene_nisarga + '<p style="margin:4px 0;"><strong>सूचना:</strong> चित्रात काय काय दिसते ते स्पष्ट आवाजात सांगा व मुख्य 3 मुद्दे लिहा.</p>' + writeLines(3)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'शिक्षक व विद्यार्थी संवाद: काल शाळेत गैरहजर राहिल्याचे कारण शिक्षकांना नम्रपणे सांगा (बोलून दाखवा व लिहा).',
+            body: writeLines(3)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'मित्राशी संवाद: शाळेच्या सुट्टीत तुम्ही काय करणार आहात यावर मित्राशी 4 ओळींचा संवाद लिहा व सादर करा.',
+            body: writeLines(4)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'भूमिका अभिनय (Role Play): भाजी बाजारात भाजी खरेदी करणे (भाजी विक्रेता व ग्राहक).',
+            body: '<p style="margin:6px 0;">जोडीने वर्गात संवाद सादर करा. (भाजीचा भाव विचारणे, ताजी भाजी निवडणे, कापडी पिशवी वापरणे, पैसे देणे).</p>' + writeLines(3)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'मत मांडणी: "मला शाळेत कोणता तास सर्वाधिक आवडतो व का?" यावर 4 वाक्ये वर्गात बोला.',
+            body: writeLines(3)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'ग्रंथालयात पुस्तक मागण्याचा संवाद पूर्ण करा व सादर करा.',
+            body: '<p style="margin:6px 0;">विद्यार्थी: नमस्कार सर/मॅडम, मला गोष्टींचे नवीन पुस्तक हवे आहे.</p>' +
+              '<p style="margin:6px 0;">ग्रंथपाल: _____________________________________________</p>' +
+              '<p style="margin:6px 0;">विद्यार्थी: मी ते पुस्तक 7 दिवसांत परत करेन. धन्यवाद!</p>'
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'दैनंदिन संभाषणातील योग्य वाक्यप्रयोग तयार करा.',
+            body: '<p style="margin:6px 0;">1) पाहुणे घरी आल्यावर तुम्ही त्यांचे स्वागत कसे कराल?</p>' + writeLines(1) +
+              '<p style="margin:6px 0;">2) मित्राला अभ्यासात मदत करायची असल्यास काय म्हणाल?</p>' + writeLines(1)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'प्रसंग सादरीकरण: शाळेतील परिपाठात आजचा सुविचार आणि बातमी कशी सांगाल ते बोलून दाखवा व सुविचार लिहा.',
+            body: writeLines(2)
+          };
+        }
+      ],
+
+      pragati: [
+        function() {
+          return {
+            oral: true,
+            title: 'प्रभावी परिचय व ध्येय: तुमची ओळख, आवडीचे छंद आणि भविष्यातील ध्येय यावर 5 ते 6 वाक्ये आत्मविश्वासाने बोला.',
+            body: writeLines(4)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'भूमिका अभिनय (Role Play): डॉक्टर आणि रुग्ण यांच्यातील संवाद वर्गात सादर करा व 5 ओळींत लिहा.',
+            body: '<p style="margin:6px 0;">मुद्दे: आजाराची लक्षणे सांगणे – डॉक्टरांचा सल्ला – औषधे व आहाराची पथ्ये.</p>' + writeLines(5)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'मत मांडणी (चर्चा कृती): "आपण आपला परिसर स्वच्छ कसा ठेवू शकतो?" यावर वर्गात 1 मिनिट बोला व 3 मुख्य मुद्दे लिहा.',
+            body: writeLines(3)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'बस प्रवासातील संवाद (Role Play): प्रवासी आणि बस कंडक्टर यांच्यातील तिकीट काढण्याचा संवाद लिहा व सादर करा.',
+            body: writeLines(4)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'चित्र पाहून 5 ते 6 वाक्ये बोला: शाळेच्या चित्रावरून आपल्या शाळेतील उपक्रमांची माहिती सांगा.',
+            body: SG_SVGS.scene_shala + writeLines(3)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'मुलाखत सराव: तुमच्या शाळेतील एका शिक्षकांची किंवा मित्राची मुलाखत घेण्यासाठी 4 चांगले प्रश्न तयार करा व विचारा.',
+            body: writeLines(4)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'शाळेतील प्रसंग संवाद: क्रीडा स्पर्धेची तयारी कशी करायची यावर दोन मित्रांमधील संवाद लिहा व बोलून दाखवा.',
+            body: writeLines(4)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'गोष्ट सांगणे (Storytelling): तुम्हाला माहीत असलेली एखादी बोधकथा स्वतःच्या शब्दांत वर्गात सांगा व तिचा बोध लिहा.',
+            body: writeLines(2)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'दूरध्वनी (Phone) संवाद: मित्राकडून आजच्या गृहपाठाची माहिती फोनवर विचारण्याचा नम्र संवाद लिहा व सादर करा.',
+            body: writeLines(4)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'योग्य शब्दप्रयोग: चुकीची भाषा सुधारून नम्र व सभ्य मराठीत कसे बोलावे ते लिहा व बोला.',
+            body: '<p style="margin:6px 0;">1) "मला ते पुस्तक दे!" → नम्र वाक्य: _____________________________</p>' +
+              '<p style="margin:6px 0;">2) "तू बाजूला सरक!" → नम्र वाक्य: _____________________________</p>'
+          };
+        }
+      ],
+
+      pravinya: [
+        function() {
+          return {
+            oral: true,
+            title: 'विषयावर विचारपूर्वक भाषण (2 मिनिटे): "पाणी बचत आणि आपली जबाबदारी" या विषयावर वर्गात मत मांडा व 4 मुद्दे लिहा.',
+            body: writeLines(4)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'भूमिका अभिनय (Role Play): गावातील शेतकरी आणि पत्रकार यांच्यातील सेंद्रिय शेतीवरील मुलाखत सादर करा.',
+            body: '<p style="margin:6px 0;">पत्रकाराचे 3 प्रश्न व शेतकऱ्याची 3 उत्तरे लिहून वर्गात सादर करा.</p>' + writeLines(5)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'वादविवाद / चर्चा कृती: "मोबाईल अभ्यासासाठी वरदान की शाप?" यावर तुमची बाजू मुद्देसूदपणे वर्गात मांडा.',
+            body: writeLines(4)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'सूत्रसंचालन सराव: शाळेतील वार्षिक स्नेहसंमेलनाचे स्वागत व प्रास्ताविक कसे कराल ते 5 वाक्यांत लिहून बोलून दाखवा.',
+            body: writeLines(5)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'बँक किंवा पोस्ट ऑफिसमधील संवाद (Role Play): बचत खाते उघडण्यासाठी कर्मचाऱ्याशी होणारा औपचारिक संवाद सादर करा.',
+            body: writeLines(5)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'वाचलेल्या पुस्तकाचा परिचय: तुम्ही वाचलेल्या एका पुस्तकाची ओळख 5 वाक्यांत वर्गात करून द्या.',
+            body: writeLines(4)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'समस्या निवारण संवाद: वर्गात दोन मित्रांमध्ये झालेला गैरसमज शांतपणे व संवादातून कसा सोडवाल? संवाद सादर करा.',
+            body: writeLines(4)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'आभार प्रदर्शन: शाळेत आलेल्या प्रमुख पाहुण्यांचे आभार मानणारे 5 वाक्यांचे भाषण तयार करून सादर करा.',
+            body: writeLines(4)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'गटचर्चा: "प्लास्टिकमुक्त शाळा" बनवण्यासाठी 4 जणांच्या गटात चर्चा करा व ठरलेले 3 नियम वर्गासमोर सांगा.',
+            body: writeLines(3)
+          };
+        },
+        function() {
+          return {
+            oral: true,
+            title: 'तत्काळ विषय सादरीकरण (Extempore): "माझे आवडते शिक्षक" किंवा "माझ्या स्वप्नातील शाळा" यावर 1 मिनिट उत्स्फूर्त बोला.',
+            body: writeLines(3)
+          };
+        }
+      ]
+    }
+  };
+
+  /* ---------------- 5. DOM References ---------------- */
+  var elClass = document.getElementById('sgmarflnps_class');
+  var elLO = document.getElementById('sgmarflnps_lo');
+  var elLevel = document.getElementById('sgmarflnps_level');
+  var elSheetCount = document.getElementById('sgmarflnps_sheet_count');
+  var elActCount = document.getElementById('sgmarflnps_act_count');
+  var elStudent = document.getElementById('sgmarflnps_student');
+  var elSchool = document.getElementById('sgmarflnps_school');
+  var elDate = document.getElementById('sgmarflnps_date');
+  var elTeacher = document.getElementById('sgmarflnps_teacher');
+
+  var btnGenerate = document.getElementById('sgmarflnps_btn_generate');
+  var btnAnother = document.getElementById('sgmarflnps_btn_another');
+  var btnPrint = document.getElementById('sgmarflnps_btn_print');
+  var btnPdf = document.getElementById('sgmarflnps_btn_pdf');
+  var btnReset = document.getElementById('sgmarflnps_btn_reset');
+  var btnGuide = document.getElementById('sgmarflnps_btn_guide');
+  var btnCloseGuide = document.getElementById('sgmarflnps_close_guide');
+
+  var elGuideBox = document.getElementById('sgmarflnps_guide_box');
+  var elStatus = document.getElementById('sgmarflnps_status');
+  var elOutputWrap = document.getElementById('sgmarflnps_output_wrap');
+  var elPreviewInfo = document.getElementById('sgmarflnps_preview_info');
+  var elContainer = document.getElementById('sgmarflnps_sheets_container');
+
+  /* ---------------- 6. Sheet Builder ---------------- */
+  function buildObservationBox(isLO4) {
+    var extraSpeaking = '';
+    if (isLO4) {
+      extraSpeaking =
+        '<div style="margin-bottom:10px;padding:8px 10px;border:1px dashed #64748b;border-radius:6px;background:#ffffff;">' +
+        '<strong>बोलणे व संवाद कौशल्य निरीक्षण (LO-4 साठी विशेष):</strong>' +
+        '<div class="sgmarflnps_check_row">' +
+        '<span class="sgmarflnps_check_item"><span class="sgmarflnps_chk_sq"></span> स्पष्ट व अचूक उच्चार</span>' +
+        '<span class="sgmarflnps_check_item"><span class="sgmarflnps_chk_sq"></span> आत्मविश्वासाने सादरीकरण</span>' +
+        '<span class="sgmarflnps_check_item"><span class="sgmarflnps_chk_sq"></span> संवादातील सक्रिय सहभाग</span>' +
+        '</div></div>';
+    }
+
+    return (
+      '<div class="sgmarflnps_obs_box">' +
+        '<h3 class="sgmarflnps_obs_title">शिक्षक निरीक्षण व प्रगती नोंद</h3>' +
+        extraSpeaking +
+        '<div style="margin-bottom:6px;"><strong>विद्यार्थ्याचा सहभाग व कामगिरी:</strong></div>' +
+        '<div class="sgmarflnps_check_row">' +
+          '<span class="sgmarflnps_check_item"><span class="sgmarflnps_chk_sq"></span> विद्यार्थ्याने कृती स्वतंत्रपणे पूर्ण केली.</span>' +
+          '<span class="sgmarflnps_check_item"><span class="sgmarflnps_chk_sq"></span> विद्यार्थ्याला थोड्या मदतीची आवश्यकता होती.</span>' +
+          '<span class="sgmarflnps_check_item"><span class="sgmarflnps_chk_sq"></span> विद्यार्थ्याला अधिक सरावाची आवश्यकता आहे.</span>' +
+        '</div>' +
+        '<div style="margin:10px 0 6px 0;"><strong>प्रगती स्थिती:</strong></div>' +
+        '<div class="sgmarflnps_check_row">' +
+          '<span class="sgmarflnps_check_item"><span class="sgmarflnps_chk_sq"></span> साध्य झाले नाही.</span>' +
+          '<span class="sgmarflnps_check_item"><span class="sgmarflnps_chk_sq"></span> प्रगतीपथावर.</span>' +
+          '<span class="sgmarflnps_check_item"><span class="sgmarflnps_chk_sq"></span> साध्य झाले.</span>' +
+        '</div>' +
+        '<div style="margin-top:10px;"><strong>शिक्षकाचे निरीक्षण / टिपण:</strong></div>' +
+        writeLines(2) +
+        '<div style="display:flex;justify-content:space-between;margin-top:18px;font-weight:700;">' +
+          '<span>दिनांक: _______________</span>' +
+          '<span>शिक्षकाची स्वाक्षरी: ___________________</span>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function generateSheets() {
+    var cls = elClass.value;
+    var loKey = elLO.value;
+    var lvlKey = elLevel.value;
+    var sheetCount = parseInt(elSheetCount.value, 10) || 1;
+    var actCount = parseInt(elActCount.value, 10) || 6;
+    if (actCount < 1) actCount = 1;
+    if (actCount > 10) actCount = 10;
+
+    var studentName = escapeHtml(elStudent.value.trim()) || '______________________________';
+    var schoolName = escapeHtml(elSchool.value.trim()) || '________________________________________';
+    var dateText = formatDateDisplay(elDate.value);
+    var teacherName = escapeHtml(elTeacher.value.trim()) || '_________________________';
+
+    var loMeta = LO_INFO[loKey];
+    var lvlMeta = LEVEL_INFO[lvlKey];
+    var pool = BANK[loKey][lvlKey];
+
+    var allHtml = '';
+
+    for (var s = 1; s <= sheetCount; s++) {
+      var selectedGenerators = shuffle(pool).slice(0, Math.min(actCount, pool.length));
+      var actsHtml = '';
+
+      for (var i = 0; i < selectedGenerators.length; i++) {
+        var act = selectedGenerators[i]();
+        var oralBadge = act.oral ? '<div class="sgmarflnps_oral_tag">प्रत्यक्ष बोलणे / संवाद कृती</div>' : '';
+        actsHtml +=
+          '<div class="sgmarflnps_act_card">' +
+            oralBadge +
+            '<h4 class="sgmarflnps_act_title">कृती ' + (i + 1) + ': ' + act.title + '</h4>' +
+            '<div class="sgmarflnps_act_body">' + act.body + '</div>' +
+          '</div>';
+      }
+
+      allHtml +=
+        '<article class="sgmarflnps_sheet">' +
+          '<div class="sgmarflnps_watermark">SmartGuruji</div>' +
+          '<div class="sgmarflnps_sheet_inner">' +
+            '<div class="sgmarflnps_sheet_top">' +
+              '<div class="sgmarflnps_brand_left">SmartGuruji – FLN Marathi Practice Sheet (2026-27)</div>' +
+              '<div class="sgmarflnps_sheet_num">सरावपत्रिका ' + s + ' / ' + sheetCount + '</div>' +
+            '</div>' +
+
+            '<h2 class="sgmarflnps_sheet_heading">मराठी FLN कौशल्यविकास सरावपत्रिका – ' + loMeta.code + ' (' + lvlMeta.name + ')</h2>' +
+
+            '<table class="sgmarflnps_meta_table">' +
+              '<tr>' +
+                '<td><strong>इयत्ता:</strong> ' + cls + '</td>' +
+                '<td><strong>विषय:</strong> मराठी</td>' +
+                '<td><strong>अध्ययन स्तर:</strong> ' + lvlMeta.name + '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<td colspan="2"><strong>विद्यार्थ्याचे नाव:</strong> ' + studentName + '</td>' +
+                '<td><strong>दिनांक:</strong> ' + dateText + '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<td colspan="2"><strong>शाळेचे नाव:</strong> ' + schoolName + '</td>' +
+                '<td><strong>शिक्षकाचे नाव:</strong> ' + teacherName + '</td>' +
+              '</tr>' +
+            '</table>' +
+
+            '<div class="sgmarflnps_lo_banner">' +
+              '<strong>अध्ययन निष्पत्ती (' + loMeta.code + '):</strong> ' + loMeta.title +
+            '</div>' +
+
+            '<div class="sgmarflnps_instructions">' +
+              '<strong>विद्यार्थ्यांसाठी सूचना:</strong> ' + loMeta.instruction +
+            '</div>' +
+
+            actsHtml +
+
+            buildObservationBox(loKey === 'LO-4') +
+
+            '<div class="sgmarflnps_sheet_footer">' +
+              '<span>Prepared for Teachers and Students | SmartGuruji</span>' +
+              '<span>इयत्ता ' + cls + ' | ' + loMeta.code + ' | ' + lvlMeta.short + ' स्तर</span>' +
+            '</div>' +
+          '</div>' +
+        '</article>';
+    }
+
+    elContainer.innerHTML = allHtml;
+    elOutputWrap.classList.remove('sgmarflnps_hidden');
+    elPreviewInfo.textContent = 'तयार: इयत्ता ' + cls + ' | ' + loKey + ' | ' + lvlMeta.name + ' | ' + sheetCount + ' सरावपत्रिका (' + actCount + ' कृती)';
+    elStatus.textContent = 'सरावपत्रिका यशस्वीरित्या तयार झाली आहे. खाली तपासून Print किंवा Save as PDF करा.';
+
+    btnAnother.disabled = false;
+    btnPrint.disabled = false;
+    btnPdf.disabled = false;
+
+    elOutputWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /* ---------------- 7. Isolated A4 Print & Save-as-PDF Engine ---------------- */
+  function printOnlySheets(isPdfMode) {
+    if (!elContainer.innerHTML.trim()) return;
+
+    var printCss =
+      '@page { size: A4 portrait; margin: 12mm; }' +
+      'body { font-family: "Noto Sans Devanagari", "Mukta", "Segoe UI", sans-serif; color: #111; margin: 0; padding: 0; font-size: 12.5pt; line-height: 1.5; background: #fff; }' +
+      '* { box-sizing: border-box; }' +
+      '.sgmarflnps_sheet { position: relative; border: 1.5pt solid #111; border-radius: 6px; padding: 14px 16px; margin-bottom: 16px; page-break-after: always; break-after: page; overflow: hidden; }' +
+      '.sgmarflnps_sheet:last-child { page-break-after: auto; break-after: auto; }' +
+      '.sgmarflnps_watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-32deg); font-size: 64pt; font-weight: 900; color: rgba(0, 0, 0, 0.05); z-index: 0; pointer-events: none; white-space: nowrap; }' +
+      '.sgmarflnps_sheet_inner { position: relative; z-index: 1; }' +
+      '.sgmarflnps_sheet_top { display: flex; justify-content: space-between; align-items: center; border-bottom: 1.8pt solid #111; padding-bottom: 6px; margin-bottom: 8px; }' +
+      '.sgmarflnps_brand_left { font-size: 12pt; font-weight: 800; color: #111; }' +
+      '.sgmarflnps_sheet_num { font-size: 10.5pt; font-weight: 700; border: 1pt solid #333; padding: 2px 8px; border-radius: 4px; }' +
+      '.sgmarflnps_sheet_heading { text-align: center; font-size: 14pt; font-weight: 800; margin: 4px 0 8px 0; }' +
+      '.sgmarflnps_meta_table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 11pt; }' +
+      '.sgmarflnps_meta_table td { border: 1pt solid #333; padding: 5px 8px; }' +
+      '.sgmarflnps_lo_banner { border: 1pt solid #333; padding: 6px 10px; border-radius: 4px; margin-bottom: 8px; font-size: 11pt; background: #f8fafc; }' +
+      '.sgmarflnps_instructions { border: 1pt dashed #555; padding: 6px 10px; border-radius: 4px; margin-bottom: 10px; font-size: 10.5pt; }' +
+      '.sgmarflnps_act_card { border: 1pt solid #999; border-radius: 5px; padding: 9px 11px; margin-bottom: 10px; page-break-inside: avoid; break-inside: avoid; }' +
+      '.sgmarflnps_act_title { font-size: 11.8pt; font-weight: 800; margin: 0 0 6px 0; }' +
+      '.sgmarflnps_oral_tag { display: inline-block; border: 1pt solid #333; padding: 1px 8px; border-radius: 999px; font-size: 9.5pt; font-weight: 700; margin-bottom: 5px; }' +
+      '.sgmarflnps_passage { border-left: 3pt solid #333; background: #f9f9f9; padding: 7px 10px; margin: 5px 0 8px 0; font-size: 11.5pt; }' +
+      '.sgmarflnps_word_bank { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 8px 0; }' +
+      '.sgmarflnps_chip { border: 1pt solid #333; border-radius: 4px; padding: 2px 9px; font-weight: 700; font-size: 11.5pt; }' +
+      '.sgmarflnps_table { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: 11pt; }' +
+      '.sgmarflnps_table th, .sgmarflnps_table td { border: 1pt solid #333; padding: 5px 8px; text-align: left; }' +
+      '.sgmarflnps_table th { background: #f1f5f9; }' +
+      '.sgmarflnps_write_lines { margin-top: 4px; }' +
+      '.sgmarflnps_line { border-bottom: 1pt dotted #444; height: 26px; width: 100%; }' +
+      '.sgmarflnps_pic_grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 6px 0; }' +
+      '.sgmarflnps_pic_box { border: 1pt solid #444; border-radius: 5px; padding: 6px; text-align: center; }' +
+      '.sgmarflnps_pic_svg { width: 64px; height: 64px; margin: 0 auto 4px auto; display: block; }' +
+      '.sgmarflnps_ans_box { border: 1pt solid #333; height: 28px; border-radius: 3px; margin-top: 4px; }' +
+      '.sgmarflnps_obs_box { border: 1.4pt solid #111; border-radius: 5px; padding: 10px 12px; margin-top: 12px; page-break-inside: avoid; break-inside: avoid; }' +
+      '.sgmarflnps_obs_title { margin: 0 0 6px 0; font-size: 11.5pt; font-weight: 800; border-bottom: 1pt solid #666; padding-bottom: 4px; }' +
+      '.sgmarflnps_check_row { display: flex; flex-wrap: wrap; gap: 12px; margin: 5px 0; font-size: 10.5pt; }' +
+      '.sgmarflnps_check_item { display: inline-flex; align-items: center; gap: 5px; }' +
+      '.sgmarflnps_chk_sq { display: inline-block; width: 13px; height: 13px; border: 1.2pt solid #111; border-radius: 2px; }' +
+      '.sgmarflnps_sheet_footer { margin-top: 10px; padding-top: 6px; border-top: 1pt solid #666; display: flex; justify-content: space-between; font-size: 9.5pt; color: #333; }';
+
+    var iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    document.body.appendChild(iframe);
+
+    var doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write('<!DOCTYPE html><html lang="mr"><head><meta charset="UTF-8"><title>SmartGuruji FLN Marathi Practice Sheet</title><style>' + printCss + '</style></head><body>' + elContainer.innerHTML + '</body></html>');
+    doc.close();
+
+    if (isPdfMode) {
+      elStatus.textContent = 'PDF जतन करण्यासाठी उघडलेल्या Print विंडोमध्ये Destination मध्ये "Save as PDF" निवडा.';
+    }
+
+    setTimeout(function() {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+      setTimeout(function() {
+        if (iframe.parentNode) {
+          iframe.parentNode.removeChild(iframe);
+        }
+      }, 1500);
+    }, 300);
+  }
+
+  /* ---------------- 8. Event Listeners ---------------- */
+  btnGenerate.addEventListener('click', generateSheets);
+  btnAnother.addEventListener('click', generateSheets);
+  btnPrint.addEventListener('click', function() { printOnlySheets(false); });
+  btnPdf.addEventListener('click', function() { printOnlySheets(true); });
+
+  btnReset.addEventListener('click', function() {
+    elClass.value = '8';
+    elLO.value = 'LO-1';
+    elLevel.value = 'prarambhik';
+    elSheetCount.value = '1';
+    elActCount.value = '6';
+    elStudent.value = '';
+    elSchool.value = '';
+    elDate.value = '';
+    elTeacher.value = '';
+    elContainer.innerHTML = '';
+    elOutputWrap.classList.add('sgmarflnps_hidden');
+    elStatus.textContent = 'सर्व पर्याय रीसेट केले आहेत.';
+    btnAnother.disabled = true;
+    btnPrint.disabled = true;
+    btnPdf.disabled = true;
+  });
+
+  btnGuide.addEventListener('click', function() {
+    elGuideBox.classList.toggle('sgmarflnps_hidden');
+  });
+
+  btnCloseGuide.addEventListener('click', function() {
+    elGuideBox.classList.add('sgmarflnps_hidden');
+  });
+})();
+</script>
+</body>
+</html>
